@@ -5,16 +5,22 @@
 **[🌐 Ver en producción → camiglobo.com](https://camiglobo.com)**
 
 ### Home
+
 [![Home de Camiglobo](https://juancasano.github.io/assets/camiglobo.png)](https://camiglobo.com)
-*Diseño responsive con hero principal y navegación clara hacia tienda y personalizador.*
+
+E-commerce completo desarrollado de principio a fin en PHP, MySQL, JavaScript ES6 y CSS3. Incluye catálogo dinámico con +100 productos, carrito y checkout, pasarela de pago PayPal, sistema de usuarios con login propio y Google OAuth, recuperación de contraseña, newsletter con envío masivo (PHPMailer/SMTP), personalizador online con Fabric.js, panel de administración propio (productos, pedidos, clientes, biblioteca de recursos), SEO técnico (Sitemap XML, Search Console, Analytics) y seguridad reforzada (HTTPS/SSL, .htaccess, variables de entorno). Desplegado en producción en Hostinger con dominio y DNS propios.
 
 ### Catálogo de productos
+
 [![Catálogo de productos](https://juancasano.github.io/assets/camiglobo-productos.png)](https://camiglobo.com/productos.php)
-*Más de 100 referencias activas en producción con grid responsive, ordenadas dinámicamente desde la base de datos.*
+
+Más de 100 referencias activas en producción cargadas dinámicamente desde MySQL: camisetas, sudaderas, hoodies, cuadros y tazas con diseños de anime, manga y cultura pop. Grid responsive con tarjetas de producto (imagen, título, precio y CTA), búsqueda por palabra clave, filtros y vista de detalle individual. Cada producto se puede comprar tal cual o personalizar con el editor interactivo. Optimizado para mobile, tablet y escritorio.
 
 ### Personalizador online
+
 [![Personalizador online](https://juancasano.github.io/assets/camiglobo-personalizador.png)](https://camiglobo.com/personalizar.php)
-*Editor interactivo con selector de prenda, paletas de color, gradientes, subida de imagen, texto y previsualización en tiempo real (delante / detrás).*
+
+Editor de diseño visual interactivo construido con **Fabric.js 5.3.1** sobre canvas. Permite personalizar prendas en **5 zonas independientes** (frontal, espalda, nuca, manga izquierda y manga derecha) con texto editable (**20 Google Fonts**, **16 efectos**: neón, oro, fuego, glitch, 3D…), subida de imágenes propias, biblioteca personal de diseños, filtros, stickers, plantillas, undo/redo, auto-guardado del progreso (JSON serializado en BD) y previsualización en tiempo real. Calcula el precio dinámicamente según las zonas personalizadas (doble cara, nuca, mangas) y exporta los diseños finales a PNG para producción.
 
 ---
 
