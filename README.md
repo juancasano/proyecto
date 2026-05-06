@@ -8,7 +8,7 @@
 
 [![Home de Camiglobo](https://juancasano.github.io/assets/camiglobo.png)](https://camiglobo.com)
 
-E-commerce completo desarrollado de principio a fin en PHP, MySQL, JavaScript ES6 y CSS3. Incluye catálogo dinámico con +100 productos, carrito y checkout, pasarela de pago PayPal, sistema de usuarios con login propio y Google OAuth, recuperación de contraseña, newsletter con envío masivo (PHPMailer/SMTP), personalizador online con Fabric.js, panel de administración propio (productos, pedidos, clientes, biblioteca de recursos), SEO técnico (Sitemap XML, Search Console, Analytics) y seguridad reforzada (HTTPS/SSL, .htaccess, variables de entorno). Desplegado en producción en Hostinger con dominio y DNS propios.
+E-commerce completo desarrollado de principio a fin en PHP, MySQL, JavaScript ES6 y CSS3. Incluye catálogo dinámico con +100 productos, carrito y checkout, pasarela de pago PayPal, sistema de usuarios con login propio y Google OAuth, recuperación de contraseña, newsletter con envío masivo (PHPMailer/SMTP), personalizador online con Fabric.js, panel de administración propio (productos, pedidos, clientes, biblioteca de recursos), SEO técnico (Sitemap XML, Search Console, Analytics) y seguridad multicapa (18 capas: anti-SQLi/CSRF/XSS, BCRYPT, rate limiting, reCAPTCHA, CSP, HSTS, audit log, GDPR). Desplegado en producción en Hostinger con dominio y DNS propios.
 
 ### Catálogo de productos
 
@@ -49,7 +49,7 @@ Editor de diseño visual interactivo construido con **Fabric.js 5.3.1** sobre ca
 - **Panel de administración propio** — gestión de pedidos, productos y clientes
 - **Diseño responsive** — mobile, tablet y escritorio con CSS3 y media queries
 - **SEO técnico** — Sitemap XML, meta tags, robots.txt, Search Console, Analytics
-- **Seguridad** — HTTPS/SSL, variables de entorno, protección .htaccess, validación de formularios
+- **Seguridad multicapa** — 18 capas implementadas: anti-SQLi (PDO preparadas), anti-CSRF (tokens `random_bytes(32)`), anti-XSS, BCRYPT, rate limiting, reCAPTCHA v2 + honeypots, sesiones seguras (HttpOnly/Secure/SameSite), CSP, HSTS, audit log, transacciones atómicas, GDPR ([detalle completo en la documentación](https://juancasano.github.io/documentacion-camiglobo.html))
 
 ---
 
