@@ -5,15 +5,15 @@
 **[🌐 Ver en producción → camiglobo.com](https://camiglobo.com)**
 
 ### Home
-![Home de Camiglobo](https://juancasano.github.io/assets/camiglobo.png)
+[![Home de Camiglobo](https://juancasano.github.io/assets/camiglobo.png)](https://camiglobo.com)
 *Diseño responsive con hero principal y navegación clara hacia tienda y personalizador.*
 
 ### Catálogo de productos
-![Catálogo de productos](https://juancasano.github.io/assets/camiglobo-productos.png)
+[![Catálogo de productos](https://juancasano.github.io/assets/camiglobo-productos.png)](https://camiglobo.com/productos.php)
 *Más de 100 referencias activas en producción con grid responsive, ordenadas dinámicamente desde la base de datos.*
 
 ### Personalizador online
-![Personalizador online](https://juancasano.github.io/assets/camiglobo-personalizador.png)
+[![Personalizador online](https://juancasano.github.io/assets/camiglobo-personalizador.png)](https://camiglobo.com/personalizar.php)
 *Editor interactivo con selector de prenda, paletas de color, gradientes, subida de imagen, texto y previsualización en tiempo real (delante / detrás).*
 
 ---
