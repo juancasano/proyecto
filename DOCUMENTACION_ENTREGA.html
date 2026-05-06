@@ -1,0 +1,1274 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Documentación Interactiva - Camiglobo Barcelona</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            background-color: #f8f9fa;
+            color: #343a40;
+        }
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            overflow: hidden;
+        }
+        .tab-header {
+            display: flex;
+            background-color: #e9ecef;
+            padding: 0 10px;
+            border-bottom: 1px solid #dee2e6;
+            overflow-x: auto;
+        }
+        .tab-button {
+            padding: 15px 20px;
+            cursor: pointer;
+            border: none;
+            background-color: transparent;
+            font-size: 15px;
+            font-weight: 600;
+            color: #6c757d;
+            transition: color 0.2s, border-bottom 0.2s;
+            border-bottom: 3px solid transparent;
+            white-space: nowrap;
+        }
+        .tab-button:hover {
+            color: #0056b3;
+        }
+        .tab-button.active {
+            color: #0056b3;
+            border-bottom: 3px solid #0056b3;
+        }
+        .tab-content {
+            display: none;
+            padding: 25px 30px;
+            animation: fadeIn 0.5s;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        h2 {
+            font-size: 1.75em;
+            color: #0056b3;
+            border-bottom: 2px solid #e9ecef;
+            padding-bottom: 0.5em;
+            margin-top: 0;
+        }
+        h3 { font-size: 1.4em; color: #17a2b8; margin-top: 1.5em; }
+        h4 { color: #17a2b8; margin-top: 1.2em; }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5em 0;
+            font-size: 0.95em;
+        }
+        th, td {
+            padding: 12px;
+            border: 1px solid #dee2e6;
+            text-align: left;
+            vertical-align: top;
+        }
+        th { background-color: #f8f9fa; font-weight: 600; }
+        pre {
+            background-color: #282c34;
+            color: #abb2bf;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            font-size: 0.9em;
+        }
+        code { font-family: monospace; background-color: #e9ecef; padding: 2px 5px; border-radius: 4px; font-size: 0.92em;}
+        pre > code { background: none; padding: 0;}
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
+        .card { background: #f8f9fa; padding: 20px; border-radius: 5px; border-left: 4px solid #17a2b8; }
+        .card h4 { margin-top: 0; color: #17a2b8;}
+        .badge {
+            display: inline-block;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 0.82em;
+            font-weight: 600;
+            color: #fff;
+        }
+        .badge-red { background: #dc3545; }
+        .badge-orange { background: #fd7e14; }
+        .badge-green { background: #28a745; }
+        .badge-blue { background: #007bff; }
+        .badge-purple { background: #6f42c1; }
+        .badge-gray { background: #6c757d; }
+        .badge-yellow { background: #ffc107; color: #333; }
+        ul { padding-left: 1.2em; }
+        li { margin-bottom: 0.4em; }
+
+        /* ===== RESPONSIVE ===== */
+        .tab-select-mobile {
+            display: none;
+            width: 100%;
+            padding: 14px 40px 14px 16px;
+            font-size: 15px;
+            font-weight: 700;
+            color: #fff;
+            border: none;
+            border-radius: 6px;
+            background: #0056b3;
+            cursor: pointer;
+            appearance: none;
+            -webkit-appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 14 14'%3E%3Cpath fill='%23ffffff' d='M7 10L2 5h10z'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 14px center;
+            box-shadow: 0 2px 6px rgba(0,86,179,0.3);
+            margin: 12px 8px 0 8px;
+        }
+        @media (max-width: 768px) {
+            body { padding: 8px; }
+            .container { border-radius: 4px; overflow: visible; }
+            .tab-header { display: none; }
+            .tab-select-mobile { display: block; }
+            .tab-content { padding: 16px 14px; }
+            h2 { font-size: 1.3em; word-wrap: break-word; overflow-wrap: break-word; }
+            h3 { font-size: 1.15em; word-wrap: break-word; overflow-wrap: break-word; }
+            h4 { font-size: 1em; word-wrap: break-word; overflow-wrap: break-word; }
+            p, li { word-wrap: break-word; overflow-wrap: break-word; }
+            .grid {
+                grid-template-columns: 1fr;
+                gap: 12px;
+                min-width: 0;
+            }
+            .card { padding: 14px; }
+
+            /* Tablas como cards apiladas */
+            table, thead, tbody, tr, th, td {
+                display: block;
+                width: 100%;
+            }
+            thead { display: none; }
+            tr {
+                margin-bottom: 10px;
+                border: 1px solid #dee2e6;
+                border-radius: 6px;
+                background: #fff;
+            }
+            td {
+                border: none;
+                border-bottom: 1px solid #f0f0f0;
+                padding: 8px 12px;
+                text-align: left;
+                word-wrap: break-word;
+                overflow-wrap: break-word;
+            }
+            td:last-child { border-bottom: none; }
+            td:first-child {
+                font-weight: 700;
+                background: #f0f4f8;
+                border-radius: 6px 6px 0 0;
+            }
+
+            pre {
+                font-size: 0.78em;
+                padding: 10px;
+                border-radius: 4px;
+                word-break: break-all;
+                white-space: pre-wrap;
+            }
+            code { font-size: 0.85em; padding: 1px 4px; }
+            ul { padding-left: 1em; }
+            li { font-size: 0.92em; }
+        }
+
+        @media (max-width: 400px) {
+            .tab-select-mobile { padding: 12px 36px 12px 12px; font-size: 14px; margin: 8px 4px 0 4px; }
+            .tab-content { padding: 12px 10px; }
+            h2 { font-size: 1.15em; }
+            .card { padding: 10px; }
+            td { padding: 6px 10px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div class="tab-header">
+            <button class="tab-button active" onclick="openTab(event, 'Funcionamiento')">Funcionamiento & UX/UI</button>
+            <button class="tab-button" onclick="openTab(event, 'Seguridad')">Seguridad</button>
+            <button class="tab-button" onclick="openTab(event, 'Tecnologia')">Tecnología</button>
+            <button class="tab-button" onclick="openTab(event, 'BaseDeDatos')">Base de Datos</button>
+            <button class="tab-button" onclick="openTab(event, 'Estructura')">Estructura & Mantenimiento</button>
+            <button class="tab-button" onclick="openTab(event, 'Resumen')">Resumen Ejecutivo</button>
+        </div>
+        <select class="tab-select-mobile" onchange="openTabSelect(this.value)">
+            <option value="Funcionamiento" selected>Funcionamiento & UX/UI</option>
+            <option value="Seguridad">Seguridad</option>
+            <option value="Tecnologia">Tecnología</option>
+            <option value="BaseDeDatos">Base de Datos</option>
+            <option value="Estructura">Estructura & Mantenimiento</option>
+            <option value="Resumen">Resumen Ejecutivo</option>
+        </select>
+
+        <!-- ============================================================ -->
+        <!-- PESTAÑA 1: FUNCIONAMIENTO Y UX/UI                            -->
+        <!-- ============================================================ -->
+        <div id="Funcionamiento" class="tab-content" style="display: block;">
+            <h2>Funcionamiento General y Experiencia de Usuario (UX/UI)</h2>
+            <p>Esta sección describe la plataforma en su totalidad: las funcionalidades implementadas, los flujos de usuario, el sistema de notificaciones y cada módulo que contribuye a una experiencia coherente desde el descubrimiento de productos hasta la post-compra.</p>
+
+            <h3>Funcionalidades Clave</h3>
+            <div class="grid">
+                <!-- Card 1 -->
+                <div class="card">
+                    <h4>1. Editor de Diseño Interactivo</h4>
+                    <p>Es la funcionalidad estrella. Utiliza <strong>Fabric.js 5.3.1</strong> como motor de canvas sobre la imagen del producto.</p>
+                    <ul>
+                        <li><strong>Diseño multi-zona:</strong> frontal, espalda, nuca, manga izquierda, manga derecha (5 canvases independientes).</li>
+                        <li><strong>Editor de texto:</strong> 20 Google Fonts, 16 efectos de texto (neón, oro, fuego, glitch, arcoíris, retro, 3D...).</li>
+                        <li><strong>Subida de imágenes:</strong> JPG, PNG, WEBP y HEIC (conversión automática vía <code>heic2any</code> para fotos de iPhone).</li>
+                        <li><strong>Filtros de imagen:</strong> sepia, Kodak, B&W, vintage y más.</li>
+                        <li><strong>Biblioteca de stickers y emojis.</strong></li>
+                        <li><strong>Plantillas predefinidas</strong> para diseño rápido.</li>
+                        <li><strong>Sistema Undo/Redo</strong> completo.</li>
+                        <li><strong>Auto-guardado:</strong> el progreso se guarda periódicamente en la BD (<code>usuarios.diseno_en_progreso</code> como JSON) para continuidad entre dispositivos.</li>
+                        <li><strong>Biblioteca personal:</strong> el usuario puede guardar su diseño para reutilizarlo en futuras compras.</li>
+                        <li><strong>Re-edición desde el carrito:</strong> carga el JSON del diseño guardado y permite modificarlo.</li>
+                        <li><strong>Calculadora de precio en tiempo real:</strong> varía según producto, talla y extras (doble cara, nuca, mangas).</li>
+                    </ul>
+                </div>
+                <!-- Card 2 -->
+                <div class="card">
+                    <h4>2. Catálogo de Productos Dinámico</h4>
+                    <p>Más que una galería estática: el catálogo es completamente dinámico y gestionado desde la BD.</p>
+                    <ul>
+                        <li><strong>Filtros por categoría:</strong> Camisetas, Sudaderas, Tazas, Cuadros (pill navigation).</li>
+                        <li><strong>Búsqueda:</strong> por nombre, descripción y categoría.</li>
+                        <li><strong>Ordenación:</strong> nombre A-Z/Z-A, precio asc/desc, novedades.</li>
+                        <li><strong>Filtro de rango de precios</strong> (mínimo/máximo).</li>
+                        <li><strong>Paginación:</strong> 25 items por página con navegación circular.</li>
+                        <li><strong>Contador de resultados</strong> con badges de filtros activos.</li>
+                        <li><strong>Skeleton loading</strong> mientras cargan las imágenes.</li>
+                        <li><strong>Vista de detalle:</strong> galería de imágenes, modal de zoom, guía de tallas (S-5XL), selector de color con swatches circulares, selector de talla con tooltips de dimensiones.</li>
+                        <li><strong>Productos relacionados</strong> aleatorios de la misma categoría.</li>
+                        <li><strong>Cross-sell:</strong> "¿Quieres este diseño en otro producto?" con CTA WhatsApp/email/teléfono.</li>
+                        <li><strong>Videos por producto:</strong> frontal, trasero y "cómo se hace" (embed modal).</li>
+                    </ul>
+                </div>
+                <!-- Card 3 -->
+                <div class="card">
+                    <h4>3. Carrito de Compras Inteligente</h4>
+                    <p>El carrito utiliza un sistema de persistencia dual que evita la pérdida de datos y permite continuidad entre dispositivos.</p>
+                    <ul>
+                        <li><strong>Persistencia dual:</strong> sesión PHP + BD (<code>usuarios.carrito_guardado</code> como JSON) para usuarios logueados.</li>
+                        <li><strong>Sincronización multi-pestaña:</strong> en cada carga de página, fuerza que la sesión coincida con la BD para evitar conflictos.</li>
+                        <li><strong>Fusionado guest → logged-in:</strong> al iniciar sesión, fusiona el carrito de la sesión con el de la BD (suma cantidades para catálogo, append para custom).</li>
+                        <li><strong>Desglose de precio personalizado:</strong> base + doble cara (+10€) + nuca (+3€) + manga izq (+3€) + manga der (+3€).</li>
+                        <li><strong>Control de cantidad</strong> con tope máximo de 500 unidades por item.</li>
+                        <li><strong>Vista previa de diseño</strong> en modal fullscreen (frontal + espalda + extras).</li>
+                        <li><strong>Barra de progreso de envío gratuito</strong> (gratis a partir de 45€).</li>
+                        <li><strong>Badges de confianza:</strong> PayPal, Visa, Mastercard, Bizum, SSL, protección al comprador.</li>
+                        <li><strong>Responsive:</strong> layout de cards optimizado para móvil.</li>
+                    </ul>
+                </div>
+                <!-- Card 4 -->
+                <div class="card card-green">
+                    <h4>4. Checkout y Doble Pasarela de Pago</h4>
+                    <p>Proceso de compra optimizado con dos métodos de pago y protección anti-fraude en cada transacción.</p>
+                    <ul>
+                        <li><strong>Login obligatorio</strong> (redirige con <code>?redirect=checkout</code>).</li>
+                        <li><strong>Libreta de direcciones</strong> guardadas con selección visual por cards.</li>
+                        <li><strong>Formulario de dirección</strong> con <code>intl-tel-input</code> (selector de país + formato internacional).</li>
+                        <li><strong>Opción de guardar dirección</strong> nueva en el perfil del usuario.</li>
+                        <li><strong>Resumen del pedido</strong> con imágenes, tallas, colores, cantidades y precios.</li>
+                        <li><strong>BIZUM:</strong> crea pedido como "Pendiente Pago", genera mensaje WhatsApp preformateado con referencia.</li>
+                        <li><strong>PAYPAL:</strong> Smart Buttons con verificación completa del pago en el servidor (ver sección Seguridad).</li>
+                        <li>Protección anti-fraude integrada en cada transacción (ver sección Seguridad).</li>
+                    </ul>
+                </div>
+                <!-- Card 5 -->
+                <div class="card card-orange">
+                    <h4>5. Gestión de Pedidos y Ciclo de Vida</h4>
+                    <p>Cada pedido sigue un ciclo de vida completo con estados definidos, historial de cambios y notificaciones automáticas.</p>
+                    <ul>
+                        <li><strong>Estados:</strong> Pendiente Pago → Pagado → En Taller → Enviado → Entregado (o Cancelado).</li>
+                        <li><strong>Estado especial:</strong> "Revisión Fraudulenta" para detección automática de manipulación de precios.</li>
+                        <li><strong>Historial de cambios:</strong> cada cambio de estado se registra en <code>pedido_historial</code> con timestamp, estado anterior/nuevo y quién lo cambió.</li>
+                        <li><strong>Vista de detalle del cliente:</strong> productos, imágenes custom (frontal/espalda/extras), color, talla, notas.</li>
+                        <li><strong>Zoom hover</strong> sobre imágenes de diseño personalizado.</li>
+                        <li><strong>Cancelación por el cliente:</strong> solo permitida en estado "Pendiente Pago".</li>
+                        <li><strong>URL de seguimiento</strong> integrada cuando el pedido está en estado "Enviado".</li>
+                        <li><strong>Badges de estado coloreados</strong> para identificación rápida.</li>
+                    </ul>
+                </div>
+                <!-- Card 6 -->
+                <div class="card">
+                    <h4>6. Panel de Usuario (4 Pestañas)</h4>
+                    <p>Dashboard personal que convierte la tienda en una herramienta para el usuario, no solo un punto de venta.</p>
+                    <ul>
+                        <li><strong>PEDIDOS:</strong> historial completo con filtro por mes, badges de estado, enlaces a detalle, botón de cancelación, enlaces de tracking.</li>
+                        <li><strong>MI BIBLIOTECA:</strong> galería de imágenes subidas por el usuario, enlaces para personalizar, descargar o eliminar.</li>
+                        <li><strong>DATOS DE ENVÍO:</strong> email (solo lectura), gestión de direcciones (añadir/editar/eliminar/predeterminada), teléfono con intl-tel-input.</li>
+                        <li><strong>SEGURIDAD:</strong> cambio de contraseña con verificación de la actual, confirmación de la nueva, reCAPTCHA.</li>
+                        <li>Sticky sidebar navigation en desktop, layout adaptado en móvil.</li>
+                    </ul>
+                </div>
+                <!-- Card 7 -->
+                <div class="card card-purple">
+                    <h4>7. Sistema de Emails Transaccionales</h4>
+                    <p>Todas las comunicaciones automáticas se envían vía <strong>PHPMailer</strong> con SMTP externo para máxima entregabilidad (ver sección Tecnología).</p>
+                    <ul>
+                        <li>Template HTML branded con logo, barra de gradiente configurable por tipo de email, footer con redes sociales y links legales.</li>
+                        <li><strong>17 eventos automáticos</strong> que disparan emails (ver tabla detallada más abajo).</li>
+                    </ul>
+                </div>
+                <!-- Card 8 -->
+                <div class="card">
+                    <h4>8. Newsletter y Comunicación Masiva</h4>
+                    <ul>
+                        <li><strong>Suscripción</strong> desde el footer en cualquier página.</li>
+                        <li>Protección con honeypot + reCAPTCHA + CSRF.</li>
+                        <li><strong>Email de bienvenida</strong> con lista de beneficios de ser suscriptor.</li>
+                        <li><strong>Email de despedida</strong> al darse de baja.</li>
+                        <li>Notificación al admin de cada nueva suscripción.</li>
+                        <li><strong>Panel de envío masivo</strong> para admin: puedeEnviar a clientes o a suscriptores del newsletter.</li>
+                        <li>Validación por destinatario y sanitización del asunto (max 200 caracteres, sin saltos de línea).</li>
+                    </ul>
+                </div>
+                <!-- Card 9 -->
+                <div class="card card-green">
+                    <h4>9. SEO y Visibilidad</h4>
+                    <ul>
+                        <li><strong>Sitemap XML dinámico</strong> que consulta productos de la BD en tiempo real.</li>
+                        <li><strong>Sitemap HTML</strong> para visitantes humanos.</li>
+                        <li><code>robots.txt</code> con directivas de rastreo.</li>
+                        <li>Verificación de Google Search Console.</li>
+                        <li><strong>Canonical URLs</strong> en todas las páginas.</li>
+                        <li><strong>Open Graph tags</strong> para compartir en redes sociales.</li>
+                        <li>Títulos dinámicos vía <code>$meta_title</code>.</li>
+                        <li><code>noindex</code> en páginas sensibles (ej. <code>gracias.php</code>).</li>
+                        <li><code>preconnect</code> hints para recursos externos (CDNs, Google Fonts).</li>
+                        <li><strong>Redirecciones 301</strong> desde las URLs antiguas de Shopify.</li>
+                    </ul>
+                </div>
+                <!-- Card 10 -->
+                <div class="card card-orange">
+                    <h4>10. Página de Contacto Premium</h4>
+                    <ul>
+                        <li>Hero split-screen con CTA directo a WhatsApp Business.</li>
+                        <li>Grid de métodos de contacto (WhatsApp, email, dirección física).</li>
+                        <li>Enlaces a TikTok, Instagram y Threads.</li>
+                        <li>Embed de video de la marca.</li>
+                        <li>Formulario con contador de caracteres en tiempo real.</li>
+                        <li>Scroll reveal animations y efecto de cursor personalizado.</li>
+                        <li>Google Maps embed con la ubicación de la tienda.</li>
+                        <li>Sección de reseñas de clientes.</li>
+                        <li>Sección "Sobre nosotros" con estadísticas.</li>
+                        <li><strong>Email dual:</strong> notificación al admin + recibo de confirmación al cliente.</li>
+                        <li><strong>Rate limiting:</strong> 1 envío cada 5 minutos por sesión.</li>
+                    </ul>
+                </div>
+                <!-- Card 11 -->
+                <div class="card">
+                    <h4>11. Páginas Legales y Cumplimiento</h4>
+                    <ul>
+                        <li><strong>Aviso Legal:</strong> empresa (CAMIGLOBO SL, CIF B67479100), cumplimiento LSSI, propiedad intelectual.</li>
+                        <li><strong>Política de Privacidad:</strong> GDPR/LOPD, tratamiento de datos.</li>
+                        <li><strong>Términos y Condiciones:</strong> condiciones de venta.</li>
+                        <li><strong>Política de Envíos:</strong> gratuito >45€, 4.95€ el resto.</li>
+                        <li><strong>Política de Reembolso:</strong> productos personalizados sin devolución.</li>
+                        <li><strong>FAQ:</strong> acordeón interactivo por categorías.</li>
+                        <li><strong>Cookie consent banner:</strong> aceptar/rechazar con persistencia en localStorage.</li>
+                    </ul>
+                </div>
+                <!-- Card 12 -->
+                <div class="card card-red">
+                    <h4>12. Panel de Administración Completo</h4>
+                    <ul>
+                        <li><strong>Gestión de Pedidos:</strong> búsqueda por ID/nombre/email, filtros por mes/estado, cards expandibles con detalles de productos, cambio de estado inline con campo de tracking, envío rápido de WhatsApp, estadísticas de ingresos.</li>
+                        <li><strong>Gestión de Productos:</strong> CRUD completo con upload de imagen/video, galería múltiple, toggle de producto destacado, edición de precio/descripción/categoría, sincronización atómica con protección anti-borrado masivo (requiere confirmación si >50%).</li>
+                        <li><strong>Auditoría de Pagos:</strong> JOIN de pagos+pedidos+usuarios, filtros por mes/año/estado, dashboard de ingresos/completados/pendientes/reembolsos/chargebacks.</li>
+                        <li><strong>Base de Clientes:</strong> lista con estadísticas (total pedidos, gasto total), búsqueda, links rápidos de WhatsApp/email.</li>
+                        <li><strong>Envío Masivo:</strong> a clientes o suscriptores newsletter.</li>
+                        <li><strong>Cleanup automático</strong> (ejecuta en cada carga): borra audit_log >30 días, biblioteca_recursos >60 días con limpieza de archivos físicos, archivos huérfanos de diseño >15 días.</li>
+                    </ul>
+                </div>
+                <!-- Card 13 -->
+                <div class="card">
+                    <h4>13. Sistema de Direcciones</h4>
+                    <ul>
+                        <li>Múltiples direcciones por usuario (tabla <code>user_direcciones</code>).</li>
+                        <li>Alias personalizable ("Casa", "Oficina", etc.).</li>
+                        <li>Dirección predeterminada seleccionable.</li>
+                        <li>CRUD completo desde el perfil.</li>
+                        <li>Guardado opcional durante el checkout.</li>
+                        <li>Validación de código postal (5 dígitos).</li>
+                    </ul>
+                </div>
+                <!-- Card 14 -->
+                <div class="card card-green">
+                    <h4>14. Autenticación Social con Google</h4>
+                    <ul>
+                        <li>OAuth 2.0 con protección CSRF vía <code>state</code> parameter.</li>
+                        <li>Auto-creación de usuario si no existe (contraseña aleatoria de 64 caracteres).</li>
+                        <li>Vinculación de Google ID a cuentas existentes.</li>
+                        <li>Fusionado de carrito post-OAuth (misma lógica que login normal).</li>
+                        <li>Redirección inteligente con whitelist (sin open redirect).</li>
+                        <li>Intercambio de authorization code vía cURL (no <code>file_get_contents</code>).</li>
+                    </ul>
+                </div>
+                <!-- Card 15 -->
+                <div class="card card-purple">
+                    <h4>15. Recuperación de Contraseña Segura</h4>
+                    <ul>
+                        <li>Token criptográficamente seguro (<code>random_bytes(32)</code>).</li>
+                        <li>Expiración del token en 1 hora.</li>
+                        <li>Rate limiting: 3 solicitudes por hora por IP.</li>
+                        <li><strong>No revela si el email existe</strong> (siempre muestra "email enviado").</li>
+                        <li>Destrucción del token tras uso (campos a NULL).</li>
+                        <li>Strength meter visual en la nueva contraseña.</li>
+                        <li>Link con branding en el email de recuperación.</li>
+                    </ul>
+                </div>
+                <!-- Card 16 -->
+                <div class="card">
+                    <h4>16. Landing Page y Contenido</h4>
+                    <ul>
+                        <li>Hero section con animaciones.</li>
+                        <li>Grid de 4 colecciones (Camisetas, Sudaderas, Tazas, Cuadros).</li>
+                        <li>Productos destacados (filtrados por campo <code>destacado=1</code> en BD).</li>
+                        <li>Guía de proceso en 4 pasos (diseña → personaliza → pide → recibe).</li>
+                        <li>Embed de Google Maps con ubicación de la tienda.</li>
+                        <li>Sección de reseñas de clientes.</li>
+                        <li>Sección de video de la marca.</li>
+                        <li>CSS responsive completo.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <h3>Flujo de Compra Completo</h3>
+            <pre><code>1. NAVEGACIÓN: El usuario explora `productos.php` con filtros, búsqueda y paginación.
+2. DETALLE: Entra en `producto.php` → galería, zoom, guía de tallas, selector de color/talla.
+3. PERSONALIZACIÓN: Entra en `personalizar.php`. Se inicializa Fabric.js con el canvas.
+4. DISEÑO: Añade texto (20 fuentes, 16 efectos) / imágenes (sube o desde biblioteca) / stickers / filtros.
+   El progreso se auto-guarda periódicamente vía `guardar_progreso.php` → BD (`diseno_en_progreso`).
+5. PRECIO: Se recalcula en tiempo real según producto, talla y extras aplicados.
+6. GUARDAR: Al pulsar "Añadir", `guardar_diseno.php` valida el diseño, guarda las imágenes
+   en el servidor con nombres seguros, recalcula precios en el backend y crea la entrada en el carrito.
+7. CARRITO: `carrito.php` muestra items con preview de diseño, desglose de extras, controles de cantidad.
+8. CHECKOUT: `checkout.php` → elige dirección (de BD o nueva) → acepta términos y condiciones.
+9. PAGO:
+   a) BIZUM: pedido "Pendiente Pago" → email con instrucciones → WhatsApp preformateado.
+   b) PAYPAL: verificación completa del pago en servidor → pedido "Pagado" → email confirmación.
+   Ambos flujos terminan en `gracias.php` con animación de confetti.
+10. POST-COMPRA: El admin cambia estados desde `admin_pedidos.php`, disparando emails automáticos
+    al cliente en cada transición (En Taller, Enviado con tracking, Entregado, Cancelado).
+11. PERFIL: El usuario ve historial completo, descarga diseños de su biblioteca, gestiona direcciones.</code></pre>
+
+            <h3>Tabla Completa de Emails Transaccionales</h3>
+            <table>
+                <thead><tr><th>Evento</th><th>Destinatario</th><th>Asunto</th><th>Color</th></tr></thead>
+                <tbody>
+                    <tr><td>Registro</td><td>Cliente</td><td>Bienvenida con código de descuento 10% (BIENVENIDA10)</td><td><span class="badge badge-red">Rojo</span></td></tr>
+                    <tr><td>Registro</td><td>Admin</td><td>Notificación de nuevo cliente</td><td><span class="badge badge-green">Verde</span></td></tr>
+                    <tr><td>Recuperación contraseña</td><td>Cliente</td><td>Link de reseteo (válido 1h)</td><td><span class="badge badge-purple">Púrpura</span></td></tr>
+                    <tr><td>Pedido Bizum</td><td>Cliente</td><td>Confirmación con instrucciones de pago Bizum</td><td><span class="badge badge-orange">Naranja</span></td></tr>
+                    <tr><td>Pedido Bizum</td><td>Admin</td><td>Alerta de nueva venta Bizum</td><td><span class="badge badge-orange">Naranja</span></td></tr>
+                    <tr><td>Pedido PayPal</td><td>Cliente</td><td>Pago confirmado</td><td><span class="badge badge-green">Verde</span></td></tr>
+                    <tr><td>Pedido PayPal</td><td>Admin</td><td>Nuevo pedido pagado</td><td><span class="badge badge-green">Verde</span></td></tr>
+                    <tr><td>Estado: En Taller</td><td>Cliente</td><td>Pedido en producción</td><td><span class="badge badge-yellow">Amarillo</span></td></tr>
+                    <tr><td>Estado: Enviado</td><td>Cliente</td><td>Pedido enviado con link de tracking</td><td><span class="badge badge-blue">Azul</span></td></tr>
+                    <tr><td>Estado: Entregado</td><td>Cliente</td><td>Pedido entregado + petición de tag en Instagram</td><td><span class="badge badge-green">Verde</span></td></tr>
+                    <tr><td>Estado: Cancelado</td><td>Cliente</td><td>Notificación de cancelación</td><td><span class="badge badge-red">Rojo</span></td></tr>
+                    <tr><td>Estado: Cancelado</td><td>Admin</td><td>Notificación de cancelación</td><td><span class="badge badge-red">Rojo</span></td></tr>
+                    <tr><td>Newsletter suscripción</td><td>Cliente</td><td>Bienvenida al club</td><td><span class="badge badge-red">Rojo</span></td></tr>
+                    <tr><td>Newsletter suscripción</td><td>Admin</td><td>Nuevo suscriptor</td><td><span class="badge badge-green">Verde</span></td></tr>
+                    <tr><td>Newsletter baja</td><td>Cliente</td><td>Confirmación de baja</td><td><span class="badge badge-gray">Gris</span></td></tr>
+                    <tr><td>Formulario contacto</td><td>Admin</td><td>Nuevo mensaje de contacto</td><td><span class="badge badge-red">Rojo</span></td></tr>
+                    <tr><td>Formulario contacto</td><td>Cliente</td><td>Confirmación de recepción</td><td><span class="badge badge-red">Rojo</span></td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- PESTAÑA 2: SEGURIDAD                                        -->
+        <!-- ============================================================ -->
+        <div id="Seguridad" class="tab-content">
+            <h2>Estrategia de Seguridad Multicapa</h2>
+            <p>La seguridad es un pilar fundamental del proyecto. Se implementaron <strong>18 capas de protección</strong> para asegurar la integridad de la plataforma, la confidencialidad de los datos de los usuarios y la disponibilidad del servicio. Cada capa aborda una amenaza específica y funciona de forma independiente, creando defensa en profundidad.</p>
+            <table>
+                <thead><tr><th>#</th><th>Capa de Protección</th><th>Implementación</th><th>Amenaza Mitigada</th></tr></thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td><strong>Anti-SQL Injection</strong></td>
+                        <td>Uso exclusivo de Consultas Preparadas con PDO (<code>EMULATE_PREPARES = false</code>).</td>
+                        <td>Impide que un atacante inyecte comandos SQL maliciosos en formularios para robar, modificar o borrar la base de datos entera, incluyendo datos de clientes y pedidos.</td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td><strong>Anti-CSRF</strong></td>
+                        <td>Tokens aleatorios únicos por sesión (<code>random_bytes(32)</code>), validados en cada petición POST. Comparación con <code>hash_equals()</code> en formularios sensibles.</td>
+                        <td>Evita que una página web maliciosa fuerce al navegador de un usuario logueado a ejecutar acciones no deseadas (cambiar contraseña, cancelar pedido) sin su consentimiento.</td>
+                    </tr>
+                    <tr>
+                        <td>3</td>
+                        <td><strong>Anti-XSS</strong></td>
+                        <td>Sanitización estricta de todas las salidas HTML con wrapper <code>h()</code> (ejecuta <code>htmlspecialchars()</code>). <code>strip_tags()</code> para campos de texto libre.</td>
+                        <td>Previene la inyección de scripts maliciosos (JavaScript) que podrían robar cookies de sesión de otros usuarios o del administrador.</td>
+                    </tr>
+                    <tr>
+                        <td>4</td>
+                        <td><strong>Hashing de Contraseñas</strong></td>
+                        <td>Algoritmo <strong>BCRYPT</strong> con <code>password_hash()</code> y <code>password_verify()</code>. Salt automático por cada contraseña.</td>
+                        <td>Si la BD fuese comprometida, las contraseñas no estarían en texto plano. BCRYPT es computacionalmente costoso, haciendo inviable la fuerza bruta sobre los hashes.</td>
+                    </tr>
+                    <tr>
+                        <td>5</td>
+                        <td><strong>Protección Anti-Fraude en Pagos</strong></td>
+                        <td>Recálculo de precios en el servidor en cada pedido. Verificación S2S (Server-to-Server) de PayPal obteniendo el monto real desde la API. Flag "Revisión Fraudulenta" si hay discrepancia >0.01€.</td>
+                        <td>Bloquea intentos donde un usuario modifica el precio en el HTML de su navegador. El servidor siempre usa su propio cálculo como fuente de verdad.</td>
+                    </tr>
+                    <tr>
+                        <td>6</td>
+                        <td><strong>Rate Limiting</strong></td>
+                        <td>Registro y bloqueo temporal por IP en la tabla <code>login_intentos</code> (5 intentos fallidos = bloqueo 15 min). Rate limiting por sesión en formularios (contacto: 1/5min, registro: 5/hora, recovery: 3/hora, uploads: 15/hora, diseños: 20/hora).</td>
+                        <td>Mitiga ataques de fuerza bruta (adivinar contraseñas), spam masivo en formularios y abuso de subidas.</td>
+                    </tr>
+                    <tr>
+                        <td>7</td>
+                        <td><strong>Mitigación de Bots</strong></td>
+                        <td><strong>Google reCAPTCHA v2</strong> en registro, contacto, newsletter, recuperación de contraseña. <strong>Campos Honeypot</strong> invisibles en contacto, newsletter, registro, footer.</td>
+                        <td>Dificulta que bots creen cuentas falsas, inunden formularios o se suscriban masivamente. Los honeypots son campos que solo los bots rellenan, delatando su identidad.</td>
+                    </tr>
+                    <tr>
+                        <td>8</td>
+                        <td><strong>Seguridad de la Sesión</strong></td>
+                        <td>Cookies con flags <code>HttpOnly</code> (no accesible por JS), <code>Secure</code> (solo HTTPS), <code>SameSite=Lax</code> (no cross-site). Modo estricto. Timeout de inactividad de 2 horas. Regeneración de ID en login (<code>session_regenerate_id(true)</code>). Vida útil de 24 horas.</td>
+                        <td>Endurece la protección contra robo de sesión por XSS, ataques de redirección y secuestro de cookies.</td>
+                    </tr>
+                    <tr>
+                        <td>9</td>
+                        <td><strong>Protección de Archivos Sensibles</strong></td>
+                        <td>Reglas en <code>.htaccess</code>: deniega acceso a <code>.env</code>, <code>.git</code>, <code>.sql</code>, <code>.bak</code>, <code>.log</code>, <code>config.php</code>. Deshabilita listado de directorios (<code>Options -Indexes</code>). Directorio <code>includes/</code> con denegación total.</td>
+                        <td>Evita que atacantes accedan a credenciales, configuración o backups a través del navegador web.</td>
+                    </tr>
+                    <tr>
+                        <td>10</td>
+                        <td><strong>Registro de Auditoría</strong></td>
+                        <td>Tabla <code>audit_log</code> que registra: logins exitosos/fallidos, alertas de fraude, cambios de contraseña, registros, envíos de contacto, subidas de recursos. Cada entrada incluye user_id, acción, detalles, IP y timestamp. Auto-limpieza de entradas >30 días.</td>
+                        <td>Vital para análisis forense post-incidente. Permite identificar qué acciones se realizaron, desde qué IP y cuándo.</td>
+                    </tr>
+                    <tr>
+                        <td>11</td>
+                        <td><strong>Seguridad de Subidas</strong></td>
+                        <td>Whitelist de extensiones (.jpg, .png, .webp). Verificación de MIME type con <code>finfo</code> (no solo extensión). <strong>Re-renderizado con GD library</strong> (destruye ataques polyglot, elimina metadata EXIF). Permisos 0644. <code>.htaccess</code> en uploads/ bloquea ejecución de scripts. Nombre seguro: <code>prefix + random_bytes(8) + timestamp</code>.</td>
+                        <td>Previene subida de webshells, scripts PHP maliciosos ocultos en imágenes, y ataques de ejecución de código arbitrario.</td>
+                    </tr>
+                    <tr>
+                        <td>12</td>
+                        <td><strong>Anti-Path Traversal</strong></td>
+                        <td><code>basename()</code> en TODAS las operaciones con rutas de archivo. Verificación de propiedad (<code>WHERE user_id = ?</code>) antes de eliminar recursos.</td>
+                        <td>Impide que un usuario acceda o elimine archivos fuera de su directorio autorizado mediante secuencias como <code>../../../etc/passwd</code>.</td>
+                    </tr>
+                    <tr>
+                        <td>13</td>
+                        <td><strong>Anti-Open Redirect</strong></td>
+                        <td>Whitelist de redirecciones permitidas: solo <code>checkout</code>, <code>perfil</code>, <code>productos</code>, <code>carrito</code>. Nunca redirige a URLs externas arbitrarias.</td>
+                        <td>Previene ataques de phishing donde un atacante usa la URL del sitio para redirigir a una página maliciosa.</td>
+                    </tr>
+                    <tr>
+                        <td>14</td>
+                        <td><strong>Content Security Policy (CSP)</strong></td>
+                        <td>Header CSP que permite solo dominios conocidos: PayPal, Google (reCAPTCHA, OAuth, Fonts, Maps), CDNs (cdnjs, jsdelivr), Font Awesome, TikTok embeds, WhatsApp links.</td>
+                        <td>Bloquea la ejecución de scripts de orígenes no autorizados, mitigando XSS incluso si un atacante inyecta código HTML.</td>
+                    </tr>
+                    <tr>
+                        <td>15</td>
+                        <td><strong>HTTP Strict Transport Security</strong></td>
+                        <td>Header <code>Strict-Transport-Security: max-age=31536000; includeSubDomains; preload</code>. Redirección 301 de HTTP a HTTPS.</td>
+                        <td>Fuerza que todas las conexiones sean por HTTPS, previniendo ataques de downgrade y man-in-the-middle.</td>
+                    </tr>
+                    <tr>
+                        <td>16</td>
+                        <td><strong>Anti-DoS en Subidas</strong></td>
+                        <td>Límite de 15MB en payload base64 para diseños. Límite de 5MB para imágenes de biblioteca. Rate limiting: 15 subidas/hora/usuario y 20 guardados de diseño/hora/IP.</td>
+                        <td>Previene ataques de denegación de servicio mediante subida masiva de archivos que saturen el almacenamiento o la memoria del servidor.</td>
+                    </tr>
+                    <tr>
+                        <td>17</td>
+                        <td><strong>Anti-Spam</strong></td>
+                        <td>Honeypot fields en contacto, newsletter, registro y footer. reCAPTCHA v2 en registro, contacto, newsletter, recuperación. Rate limiting por sesión/IP.</td>
+                        <td>Capa múltiple contra spam automatizado. Los honeypots son campos CSS-ocultos que solo los bots rellenan.</td>
+                    </tr>
+                    <tr>
+                        <td>18</td>
+                        <td><strong>Cumplimiento GDPR/LOPD</strong></td>
+                        <td>Cookie consent banner con aceptar/rechazar (localStorage). Política de privacidad completa. Checkbox obligatorio de aceptación en registro. <code>Permissions-Policy</code> que bloquea FLoC, attribution reporting y ad auction. Opción de baja de cuenta.</td>
+                        <td>Cumple con la normativa europea de protección de datos, otorgando al usuario control sobre sus datos y cookies.</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>Transacciones y Consistencia de Datos</h3>
+            <p>Las operaciones críticas (creación de pedidos, pagos) utilizan <strong>transacciones atómicas</strong> con <code>BEGIN</code>/<code>COMMIT</code>/<code>ROLLBACK</code>. Si cualquier paso de la inserción falla (pedido, detalles, pago), la operación completa se revierte, evitando datos inconsistentes como pedidos sin detalles o pagos sin pedido asociado.</p>
+
+            <h3>Headers de Seguridad del Servidor</h3>
+            <table>
+                <thead><tr><th>Header</th><th>Valor</th><th>Propósito</th></tr></thead>
+                <tbody>
+                    <tr><td>X-Frame-Options</td><td>SAMEORIGIN</td><td>Previene clickjacking (el sitio no puede ser embebido en iframes externos)</td></tr>
+                    <tr><td>X-Content-Type-Options</td><td>nosniff</td><td>Evita que el navegador "adivine" el tipo de contenido</td></tr>
+                    <tr><td>Referrer-Policy</td><td>(configurado)</td><td>Controla qué información de referrer se envía</td></tr>
+                    <tr><td>Permissions-Policy</td><td>browsing-topics=()</td><td>Bloquea FLoC y tracking de intereses del navegador</td></tr>
+                    <tr><td>Strict-Transport-Security</td><td>max-age=31536000</td><td>Fuerza HTTPS por 1 año</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- PESTAÑA 3: TECNOLOGÍA                                       -->
+        <!-- ============================================================ -->
+        <div id="Tecnologia" class="tab-content">
+            <h2>Stack Tecnológico y Decisiones</h2>
+            <p>La elección de tecnologías se basó en la robustez, el soporte de la comunidad y la adecuación a los requisitos de un e-commerce a medida. Se optó por un stack tradicional y probado, minimizando dependencias complejas para facilitar el mantenimiento.</p>
+
+            <h3>Componentes Principales</h3>
+            <div class="grid">
+                <div class="card">
+                    <h4>Backend</h4>
+                    <p><strong>PHP 8.x:</strong> Elegido por su madurez en el ecosistema web. La versión 8.x ofrece un rendimiento competitivo y características de lenguaje modernas. Permite una arquitectura simple sin la sobrecarga de un framework MVC, adecuada para este proyecto.</p>
+                    <p><strong>MariaDB (MySQL):</strong> Motor de base de datos relacional con soporte transaccional completo. Codificación <code>utf8mb4</code> para compatibilidad total con cualquier carácter (incluidos emojis).</p>
+                    <p><strong>PDO:</strong> Capa de acceso a datos con prepared statements reales (<code>EMULATE_PREPARES = false</code>), manejo de excepciones y fetch asociativo.</p>
+                </div>
+                <div class="card">
+                    <h4>Frontend</h4>
+                    <p><strong>Vanilla JavaScript:</strong> Sin framework pesado (React, Vue) para las páginas principales. Máxima velocidad de carga y simplicidad. JS puro para interacciones de UI, validaciones de formularios y llamadas AJAX.</p>
+                    <p><strong>Fabric.js 5.3.1:</strong> Única dependencia frontend "pesada". Motor del editor de diseño canvas. Provee API completa para manipulación de objetos, serialización a JSON, filtros de imagen y exportación a PNG.</p>
+                    <p><strong>CSS Responsive Propio:</strong> Grid layouts, mobile-first, skeleton loading, animaciones scroll reveal, efectos de cursor personalizado.</p>
+                    <p><strong>intl-tel-input:</strong> Input de teléfono internacional con selector de país y formato automático según región.</p>
+                </div>
+                <div class="card">
+                    <h4>Infraestructura</h4>
+                    <p><strong>Hosting Compartido (Hostinger):</strong> Solución coste-efectiva. Panel hPanel para gestión de BD, dominios, Cron Jobs, archivos y certificados SSL.</p>
+                    <p><strong>Apache + .htaccess:</strong> URLs limpias (mod_rewrite), redirecciones, reglas de seguridad descentralizadas, configuración de PHP limits (64MB upload, 256MB memory, 300s execution).</p>
+                    <p><strong>SMTP Hostinger:</strong> Puerto 465 con SSL para entrega fiable de emails transaccionales vía PHPMailer.</p>
+                </div>
+                <div class="card card-green">
+                    <h4>Helper Files</h4>
+                    <p><strong><code>includes/pricing.php</code> (59 líneas):</strong> Funciones <code>precioBaseCatalogo()</code> y <code>calcularPrecioPersonalizado()</code>. Lógica de precios: doble cara +10€, nuca +3€, manga izq +3€, manga der +3€, azulejo fijo 9€.</p>
+                    <p><strong><code>includes/colors.php</code> (56 líneas):</strong> Mapa centralizado de 50+ colores con valores hex y aliases para variantes heather/vintage. Usado en carrito, admin y páginas de producto.</p>
+                </div>
+                <div class="card card-orange">
+                    <h4>Archivos Maestros</h4>
+                    <p><strong><code>includes/header.php</code> (602 líneas):</strong> Navbar completa con logo, buscador, categorías, acciones de usuario (login/perfil/carrito), dropdown de admin, links a redes sociales, menú móvil responsive, cursor dot personalizado.</p>
+                    <p><strong><code>includes/footer.php</code> (197 líneas):</strong> Formulario de newsletter (con honeypot + CSRF + reCAPTCHA), links del footer, iconos de redes sociales, cookie consent banner, sistema de toast notifications.</p>
+                </div>
+            </div>
+
+            <h3>Todas las Dependencias y Servicios Externos</h3>
+            <table>
+                <thead><tr><th>Servicio / Librería</th><th>Uso Principal</th><th>Detalles de Implementación</th></tr></thead>
+                <tbody>
+                    <tr>
+                        <td><strong>PayPal SDK</strong></td>
+                        <td>Pasarela de pago</td>
+                        <td>Smart Buttons en frontend para UX fluida. API REST en backend para verificación S2S: obtiene token OAuth, consulta orden en <code>api-m.paypal.com</code> (producción), extrae monto real pagado. Fundamental para anti-fraude.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Google reCAPTCHA v2</strong></td>
+                        <td>Protección anti-bots</td>
+                        <td>Widget en formularios de registro, contacto, newsletter y recuperación. Verificación server-side vía cURL a <code>google.com/recaptcha/api/siteverify</code>.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Google OAuth 2.0</strong></td>
+                        <td>Login social</td>
+                        <td>Flujo: redirect a <code>accounts.google.com</code> → callback en <code>procesar_google.php</code> → intercambio de code por token vía cURL → obtención de perfil desde <code>googleapis.com</code>. Protección CSRF con state parameter.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>PHPMailer</strong></td>
+                        <td>Envío de emails</td>
+                        <td>Wrapper <code>enviarEmail()</code> en config.php. SMTP Hostinger, puerto 465, SSL. Template HTML branded con barra de gradiente configurable, logo y footer con redes sociales. Superior a <code>mail()</code> en entregabilidad.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Fabric.js 5.3.1</strong></td>
+                        <td>Editor de diseño canvas</td>
+                        <td>CDN: cdnjs.cloudflare.com. Motor del editor interactivo. Maneja: renderizado de canvas, manipulación de objetos (texto, imagen, rect, circle), filtros, serialización JSON, exportación PNG, undo/redo.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>heic2any</strong></td>
+                        <td>Conversión HEIC→PNG</td>
+                        <td>CDN: cdn.jsdelivr.net. Convierte automáticamente fotos en formato HEIC (formato nativo de iPhone) a PNG visualizable en el navegador. Ejecución client-side.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>intl-tel-input</strong></td>
+                        <td>Input teléfono internacional</td>
+                        <td>CDN: cdnjs.cloudflare.com. Selector de país con banderas, formato automático del número según la región seleccionada. Usado en checkout y perfil.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>canvas-confetti</strong></td>
+                        <td>Animación post-compra</td>
+                        <td>CDN: cdn.jsdelivr.net. Efecto de confetti en colores de marca (rojo, verde, negro) en la página de agradecimiento <code>gracias.php</code>.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Font Awesome 6.5.1</strong></td>
+                        <td>Iconografía</td>
+                        <td>CDN: cdnjs.cloudflare.com. Iconos para navegación, acciones de usuario, botones de redes sociales, badges de estado, etc.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Google Fonts</strong></td>
+                        <td>Tipografías del editor</td>
+                        <td>20 fuentes tipográficas cargadas dinámicamente en el editor de diseño para ofrecer variedad creativa al usuario.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Google Maps</strong></td>
+                        <td>Ubicación de tienda</td>
+                        <td>Embed estático en index.php y contacto.php. Links de Google Maps generados dinámicamente con la dirección del pedido para el admin.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>WhatsApp Business</strong></td>
+                        <td>Comunicación directa</td>
+                        <td>Links <code>wa.me/34653851786</code> en contacto, cross-sell de producto, mensajes preformateados de pedidos Bizum y contacto rápido desde admin.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Instagram</strong></td>
+                        <td>Prueba social</td>
+                        <td>Enlaces en header, footer y email. Petición de tag en email de entrega.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>TikTok + Threads</strong></td>
+                        <td>Contenido social</td>
+                        <td>Links en header, footer y página de contacto.</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>Límites de PHP Configurados</h3>
+            <table>
+                <thead><tr><th>Parámetro</th><th>Valor</th><th>Propósito</th></tr></thead>
+                <tbody>
+                    <tr><td><code>upload_max_filesize</code></td><td>64MB</td><td>Permite subir imágenes y videos de alta calidad para productos</td></tr>
+                    <tr><td><code>post_max_size</code></td><td>64MB</td><td>Permite envío de formularios con múltiples archivos adjuntos</td></tr>
+                    <tr><td><code>memory_limit</code></td><td>256MB</td><td>Necesario para procesamiento de imágenes con GD library y re-renderizado</td></tr>
+                    <tr><td><code>max_execution_time</code></td><td>300s</td><td>Tiempo suficiente para procesar pedidos complejos con múltiples diseños</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- PESTAÑA 4: BASE DE DATOS                                    -->
+        <!-- ============================================================ -->
+        <div id="BaseDeDatos" class="tab-content">
+            <h2>Diseño y Estructura de la Base de Datos</h2>
+            <p>Se ha diseñado un esquema relacional normalizado de <strong>11 tablas</strong> para garantizar la integridad, evitar la redundancia de datos y optimizar las consultas. El motor es <strong>MariaDB (MySQL)</strong> con codificación <code>utf8mb4</code>.</p>
+
+            <h3>Diagrama de Relaciones</h3>
+            <p>La tabla <code>usuarios</code> es la entidad central del sistema. Casi todas las demás tablas se relacionan directa o indirectamente con ella.</p>
+            <pre><code>
+[usuarios] 1-N [pedidos] 1-N [pedidos_detalle]
+   |                  |
+   +-- 1-N [user_direcciones]     +-- 1-N [pedido_historial]
+   |                  |
+   +-- 1-N [biblioteca_recursos]  `-- 1-1 [pagos]
+   |
+   `-- (login_intentos se relaciona por IP, no por FK)
+
+[productos] N-1 [pedidos_detalle]
+
+[newsletter]     (independiente - suscriptores)
+[audit_log]      (independiente - registro de auditoría)
+            </code></pre>
+
+            <h3>Todas las Tablas (11)</h3>
+
+            <h4>1. <code>usuarios</code></h4>
+            <p>Entidad central. Contiene autenticación, perfil y datos persistentes del usuario.</p>
+            <table>
+                <thead><tr><th>Columna</th><th>Tipo</th><th>Descripción</th></tr></thead>
+                <tbody>
+                    <tr><td><code>id</code></td><td>INT PK AUTO_INCREMENT</td><td>Identificador único del usuario</td></tr>
+                    <tr><td><code>nombre</code></td><td>VARCHAR</td><td>Nombre completo</td></tr>
+                    <tr><td><code>email</code></td><td>VARCHAR UNIQUE</td><td>Email para login (único en el sistema)</td></tr>
+                    <tr><td><code>password</code></td><td>VARCHAR</td><td>Hash BCRYPT de la contraseña</td></tr>
+                    <tr><td><code>rol</code></td><td>ENUM('cliente','admin')</td><td>Rol del usuario en el sistema</td></tr>
+                    <tr><td><code>telefono</code></td><td>VARCHAR</td><td>Número de teléfono con prefijo internacional</td></tr>
+                    <tr><td><code>direccion</code></td><td>TEXT</td><td>Dirección postal principal</td></tr>
+                    <tr><td><code>ciudad</code></td><td>VARCHAR</td><td>Ciudad</td></tr>
+                    <tr><td><code>cp</code></td><td>VARCHAR(5)</td><td>Código postal (validado: 5 dígitos)</td></tr>
+                    <tr><td><code>fecha_registro</code></td><td>DATETIME</td><td>Fecha de creación de la cuenta</td></tr>
+                    <tr><td><code>carrito_guardado</code></td><td>JSON</td><td>Carrito persistido en BD para usuarios logueados (sync multi-dispositivo)</td></tr>
+                    <tr><td><code>diseno_en_progreso</code></td><td>JSON</td><td>Estado serializado del editor Fabric.js (auto-guardado de progreso)</td></tr>
+                    <tr><td><code>reset_token</code></td><td>VARCHAR</td><td>Token para recuperación de contraseña (se destruye tras uso)</td></tr>
+                    <tr><td><code>reset_expires</code></td><td>DATETIME</td><td>Fecha de expiración del token de reset (1 hora)</td></tr>
+                    <tr><td><code>google_id</code></td><td>VARCHAR</td><td>ID de Google para login social OAuth 2.0</td></tr>
+                </tbody>
+            </table>
+
+            <h4>2. <code>pedidos</code></h4>
+            <p>Cabecera de cada orden de compra. Contiene la información general del pedido.</p>
+            <table>
+                <thead><tr><th>Columna</th><th>Tipo</th><th>Descripción</th></tr></thead>
+                <tbody>
+                    <tr><td><code>id</code></td><td>INT PK AUTO_INCREMENT</td><td>Identificador único del pedido</td></tr>
+                    <tr><td><code>id_pago</code></td><td>VARCHAR</td><td>Referencia externa de pago (PayPal order ID o código Bizum)</td></tr>
+                    <tr><td><code>user_id</code></td><td>INT FK → usuarios</td><td>Usuario que realizó el pedido</td></tr>
+                    <tr><td><code>productos</code></td><td>TEXT</td><td>Resumen de productos del pedido</td></tr>
+                    <tr><td><code>total</code></td><td>DECIMAL</td><td>Monto total del pedido (calculado en servidor)</td></tr>
+                    <tr><td><code>direccion_completa</code></td><td>TEXT</td><td>Dirección de envío completa</td></tr>
+                    <tr><td><code>estado</code></td><td>VARCHAR</td><td>Estado actual: Pendiente Pago, Pagado, En Taller, Enviado, Entregado, Cancelado, Revisión Fraudulenta</td></tr>
+                    <tr><td><code>fecha</code></td><td>DATETIME</td><td>Fecha y hora de creación del pedido</td></tr>
+                    <tr><td><code>tracking_url</code></td><td>VARCHAR</td><td>URL de seguimiento del envío (añadida por admin al marcar como Enviado)</td></tr>
+                    <tr><td><code>payment_id</code></td><td>VARCHAR</td><td>ID interno del registro de pago asociado</td></tr>
+                </tbody>
+            </table>
+
+            <h4>3. <code>pedidos_detalle</code></h4>
+            <p>Tabla más crítica para el negocio. Cada fila es un producto dentro de un pedido. Aquí se almacena la personalización.</p>
+            <table>
+                <thead><tr><th>Columna</th><th>Tipo</th><th>Descripción</th></tr></thead>
+                <tbody>
+                    <tr><td><code>id</code></td><td>INT PK AUTO_INCREMENT</td><td>Identificador único del detalle</td></tr>
+                    <tr><td><code>pedido_id</code></td><td>INT FK → pedidos</td><td>Pedido al que pertenece</td></tr>
+                    <tr><td><code>producto_id</code></td><td>VARCHAR FK → productos</td><td>Producto del catálogo (o "CUSTOM_PROD" para personalizados)</td></tr>
+                    <tr><td><code>nombre</code></td><td>VARCHAR</td><td>Nombre del producto en el momento de la compra</td></tr>
+                    <tr><td><code>talla</code></td><td>VARCHAR</td><td>Talla seleccionada (S, M, L, XL, etc.)</td></tr>
+                    <tr><td><code>color</code></td><td>VARCHAR</td><td>Nombre del color seleccionado</td></tr>
+                    <tr><td><code>imagen_custom</code></td><td>VARCHAR</td><td>Ruta al PNG del diseño frontal generado</td></tr>
+                    <tr><td><code>imagen_espalda</code></td><td>VARCHAR</td><td>Ruta al PNG del diseño de espalda</td></tr>
+                    <tr><td><code>logos_extras</code></td><td>JSON</td><td>Rutas a PNGs de zonas extra (nuca, manga izq, manga der)</td></tr>
+                    <tr><td><code>extras_descripcion</code></td><td>TEXT</td><td>Descripción de los extras aplicados (doble cara, nuca, etc.)</td></tr>
+                    <tr><td><code>notas</code></td><td>TEXT</td><td>Notas del cliente sobre el diseño (sanitizadas con strip_tags)</td></tr>
+                    <tr><td><code>cantidad</code></td><td>INT</td><td>Unidades de este producto+variante</td></tr>
+                    <tr><td><code>precio_unitario</code></td><td>DECIMAL</td><td>Precio por unidad (calculado en servidor, no confiar en cliente)</td></tr>
+                </tbody>
+            </table>
+
+            <h4>4. <code>pagos</code></h4>
+            <p>Registro de cada transacción monetaria. Fundamental para contabilidad y verificación anti-fraude.</p>
+            <table>
+                <thead><tr><th>Columna</th><th>Tipo</th><th>Descripción</th></tr></thead>
+                <tbody>
+                    <tr><td><code>id</code></td><td>INT PK AUTO_INCREMENT</td><td>Identificador único del pago</td></tr>
+                    <tr><td><code>pedido_id</code></td><td>INT FK → pedidos</td><td>Pedido asociado</td></tr>
+                    <tr><td><code>paypal_order_id</code></td><td>VARCHAR</td><td>ID de la transacción en PayPal (o referencia Bizum)</td></tr>
+                    <tr><td><code>payer_id</code></td><td>VARCHAR</td><td>ID del pagador en PayPal (para chargeback protection)</td></tr>
+                    <tr><td><code>payer_email</code></td><td>VARCHAR</td><td>Email del pagador en PayPal</td></tr>
+                    <tr><td><code>payer_name</code></td><td>VARCHAR</td><td>Nombre del pagador en PayPal</td></tr>
+                    <tr><td><code>amount</code></td><td>DECIMAL</td><td>Monto real verificado (de PayPal API, no del cliente)</td></tr>
+                    <tr><td><code>currency_code</code></td><td>VARCHAR(3)</td><td>Moneda (EUR)</td></tr>
+                    <tr><td><code>status</code></td><td>VARCHAR</td><td>COMPLETED, FAILED, PENDING</td></tr>
+                    <tr><td><code>payment_method</code></td><td>VARCHAR</td><td>PAYPAL o BIZUM</td></tr>
+                    <tr><td><code>captured_at</code></td><td>DATETIME</td><td>Fecha de captura del pago</td></tr>
+                    <tr><td><code>chargeback</code></td><td>BOOLEAN</td><td>Flag de chargeback/disputa</td></tr>
+                    <tr><td><code>chargeback_reason</code></td><td>TEXT</td><td>Razón del chargeback si aplica</td></tr>
+                </tbody>
+            </table>
+
+            <h4>5. <code>productos</code></h4>
+            <p>Catálogo completo. Cada producto puede tener galería de imágenes, videos y ser destacado.</p>
+            <table>
+                <thead><tr><th>Columna</th><th>Tipo</th><th>Descripción</th></tr></thead>
+                <tbody>
+                    <tr><td><code>id</code></td><td>VARCHAR PK</td><td>Identificador único del producto (ej: "prod_a1b2c3d4_1710000000")</td></tr>
+                    <tr><td><code>nombre</code></td><td>VARCHAR</td><td>Nombre del producto</td></tr>
+                    <tr><td><code>descripcion</code></td><td>TEXT</td><td>Descripción detallada</td></tr>
+                    <tr><td><code>precio</code></td><td>DECIMAL</td><td>Precio base del producto</td></tr>
+                    <tr><td><code>imagen_url</code></td><td>VARCHAR</td><td>Ruta a la imagen principal</td></tr>
+                    <tr><td><code>imagenes_galeria</code></td><td>JSON</td><td>Array de rutas a imágenes adicionales</td></tr>
+                    <tr><td><code>video_delante</code></td><td>VARCHAR</td><td>Ruta al video frontal del producto</td></tr>
+                    <tr><td><code>video_detras</code></td><td>VARCHAR</td><td>Ruta al video trasero</td></tr>
+                    <tr><td><code>video_como_se_hace</code></td><td>VARCHAR</td><td>Ruta al video del proceso de fabricación</td></tr>
+                    <tr><td><code>categoria</code></td><td>VARCHAR</td><td>Categoría: camisetas, sudaderas, tazas, cuadros</td></tr>
+                    <tr><td><code>destacado</code></td><td>BOOLEAN</td><td>Si aparece en la sección de destacados del index</td></tr>
+                    <tr><td><code>destacado_at</code></td><td>DATETIME</td><td>Fecha en que fue marcado como destacado</td></tr>
+                </tbody>
+            </table>
+
+            <h4>6. <code>biblioteca_recursos</code></h4>
+            <p>Imágenes subidas por los usuarios para usar en el editor de diseño.</p>
+            <table>
+                <thead><tr><th>Columna</th><th>Tipo</th><th>Descripción</th></tr></thead>
+                <tbody>
+                    <tr><td><code>id</code></td><td>INT PK AUTO_INCREMENT</td><td>Identificador único del recurso</td></tr>
+                    <tr><td><code>user_id</code></td><td>INT FK → usuarios</td><td>Propietario del recurso</td></tr>
+                    <tr><td><code>ruta_imagen</code></td><td>VARCHAR</td><td>Ruta al archivo de imagen en el servidor</td></tr>
+                    <tr><td><code>fecha</code></td><td>DATETIME</td><td>Fecha de subida</td></tr>
+                </tbody>
+            </table>
+
+            <h4>7. <code>user_direcciones</code></h4>
+            <p>Libreta de direcciones del usuario. Permite múltiples direcciones con una predeterminada.</p>
+            <table>
+                <thead><tr><th>Columna</th><th>Tipo</th><th>Descripción</th></tr></thead>
+                <tbody>
+                    <tr><td><code>id</code></td><td>INT PK AUTO_INCREMENT</td><td>Identificador único de la dirección</td></tr>
+                    <tr><td><code>user_id</code></td><td>INT FK → usuarios</td><td>Propietario de la dirección</td></tr>
+                    <tr><td><code>alias</code></td><td>VARCHAR</td><td>Nombre identificador ("Casa", "Oficina")</td></tr>
+                    <tr><td><code>nombre</code></td><td>VARCHAR</td><td>Nombre del destinatario</td></tr>
+                    <tr><td><code>direccion</code></td><td>TEXT</td><td>Línea de dirección</td></tr>
+                    <tr><td><code>ciudad</code></td><td>VARCHAR</td><td>Ciudad</td></tr>
+                    <tr><td><code>cp</code></td><td>VARCHAR(5)</td><td>Código postal (5 dígitos)</td></tr>
+                    <tr><td><code>telefono</code></td><td>VARCHAR</td><td>Teléfono de contacto para envío</td></tr>
+                    <tr><td><code>predeterminada</code></td><td>BOOLEAN</td><td>Si es la dirección principal del usuario</td></tr>
+                </tbody>
+            </table>
+
+            <h4>8. <code>pedido_historial</code></h4>
+            <p>Auditoría de cambios de estado. Permite reconstruir el timeline completo de cualquier pedido.</p>
+            <table>
+                <thead><tr><th>Columna</th><th>Tipo</th><th>Descripción</th></tr></thead>
+                <tbody>
+                    <tr><td><code>id</code></td><td>INT PK AUTO_INCREMENT</td><td>Identificador único del registro</td></tr>
+                    <tr><td><code>pedido_id</code></td><td>INT FK → pedidos</td><td>Pedido afectado</td></tr>
+                    <tr><td><code>estado_anterior</code></td><td>VARCHAR</td><td>Estado antes del cambio</td></tr>
+                    <tr><td><code>estado_nuevo</code></td><td>VARCHAR</td><td>Estado después del cambio</td></tr>
+                    <tr><td><code>cambiado_por</code></td><td>INT</td><td>ID del admin que realizó el cambio</td></tr>
+                    <tr><td><code>fecha</code></td><td>DATETIME</td><td>Fecha y hora del cambio</td></tr>
+                </tbody>
+            </table>
+
+            <h4>9. <code>audit_log</code></h4>
+            <p>"Caja negra" del sistema. Registra eventos de seguridad para análisis forense post-incidente.</p>
+            <table>
+                <thead><tr><th>Columna</th><th>Tipo</th><th>Descripción</th></tr></thead>
+                <tbody>
+                    <tr><td><code>id</code></td><td>INT PK AUTO_INCREMENT</td><td>Identificador único del evento</td></tr>
+                    <tr><td><code>user_id</code></td><td>INT</td><td>Usuario involucrado (NULL si no autenticado)</td></tr>
+                    <tr><td><code>action</code></td><td>VARCHAR</td><td>Tipo de evento: login_success, login_fail, csrf_fail, registration, password_change, contact_submit, fraud_alert, upload, etc.</td></tr>
+                    <tr><td><code>details</code></td><td>TEXT</td><td>Información adicional del evento</td></tr>
+                    <tr><td><code>ip</code></td><td>VARCHAR</td><td>Dirección IP del cliente</td></tr>
+                    <tr><td><code>timestamp</code></td><td>DATETIME</td><td>Fecha y hora del evento</td></tr>
+                </tbody>
+            </table>
+            <p><strong>Auto-limpieza:</strong> El panel de admin borra automáticamente entradas mayores a 30 días en cada carga.</p>
+
+            <h4>10. <code>login_intentos</code></h4>
+            <p>Protección anti-fuerza bruta. Registra intentos fallidos de login por IP.</p>
+            <table>
+                <thead><tr><th>Columna</th><th>Tipo</th><th>Descripción</th></tr></thead>
+                <tbody>
+                    <tr><td><code>ip</code></td><td>VARCHAR UNIQUE PK</td><td>Dirección IP del cliente</td></tr>
+                    <tr><td><code>intentos</code></td><td>INT</td><td>Número de intentos fallidos consecutivos</td></tr>
+                    <tr><td><code>ultima_falla</code></td><td>DATETIME</td><td>Timestamp del último intento fallido</td></tr>
+                </tbody>
+            </table>
+            <p><strong>Lógica:</strong> Si <code>intentos >= 5</code> y <code>ultima_falla</code> hace menos de 15 minutos, se bloquea el acceso. Se resetea tras un login exitoso.</p>
+
+            <h4>11. <code>newsletter</code></h4>
+            <p>Suscriptores del boletín. Fuente para envíos masivos del admin.</p>
+            <table>
+                <thead><tr><th>Columna</th><th>Tipo</th><th>Descripción</th></tr></thead>
+                <tbody>
+                    <tr><td><code>id</code></td><td>INT PK AUTO_INCREMENT</td><td>Identificador único</td></tr>
+                    <tr><td><code>email</code></td><td>VARCHAR UNIQUE</td><td>Email del suscriptor (único)</td></tr>
+                    <tr><td><code>fecha_registro</code></td><td>DATETIME</td><td>Fecha de suscripción</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- PESTAÑA 5: ESTRUCTURA Y MANTENIMIENTO                       -->
+        <!-- ============================================================ -->
+        <div id="Estructura" class="tab-content">
+            <h2>Arquitectura de Archivos</h2>
+            <p>El proyecto adopta un enfoque clásico de PHP sin frameworks. La separación es: presentación (HTML+PHP), lógica de negocio (scripts procesadores) y configuración (includes/). Más de <strong>50 archivos PHP</strong> y <strong>15,000+ líneas de código</strong>.</p>
+
+            <h3>Árbol Completo del Proyecto</h3>
+            <pre><code>
+/
+├── includes/                        # Ficheros de inclusión global
+│   ├── config.php                   # 510 líneas. El cerebro: BD, sesiones, CSRF, headers
+│   │                                #   seguridad, funciones globales (h(), auditLog(),
+│   │                                #   enviarEmail(), validarRecaptcha(), getClientIP(),
+│   │                                #   esAdmin(), formatPrecio(), esMovil())
+│   ├── header.php                   # 602 líneas. Navbar completa, buscador, categorías,
+│   │                                #   acciones de usuario, admin dropdown, redes sociales,
+│   │                                #   menú móvil, cursor dot personalizado
+│   ├── footer.php                   # 197 líneas. Newsletter (honeypot+CSRF+reCAPTCHA),
+│   │                                #   links footer, iconos sociales, cookie consent banner,
+│   │                                #   sistema de toast notifications
+│   ├── pricing.php                  # 59 líneas. precioBaseCatalogo(), calcularPrecioPersonalizado()
+│   ├── colors.php                   # 56 líneas. Mapa de 50+ colores con hex y aliases
+│   ├── .env                         # CRÍTICO. Credenciales: BD, PayPal, reCAPTCHA, SMTP, OAuth
+│   ├── .htaccess                    # Denegación total de acceso web al directorio
+│   └── PHPMailer/                   # Librería externa para envío SMTP
+│       ├── PHPMailer.php
+│       ├── SMTP.php
+│       ├── Exception.php
+│       └── (archivos auxiliares)
+│
+├── uploads/                         # Archivos subidos por usuarios
+│   ├── .htaccess                    # Solo permite imágenes, bloquea ejecución de scripts
+│   ├── custom/                      # Diseños personalizados (PNGs generados por el editor)
+│   ├── pedidos/                     # Imágenes de pedidos procesados
+│   └── recursos/                    # Imágenes de la biblioteca personal de usuarios
+│
+├── admin/                           # Scripts internos del panel de administración
+│   ├── cambiar_estado.php           # 170 líneas. Cambio de estado con emails automáticos,
+│   │                                #   historial, validación de tracking URL
+│   └── ver_pedido.php               # 299 líneas. Detalle completo de pedido para admin
+│
+├── procesar_login.php               # 200 líneas. Auth engine + rate limiting + cart fusion
+├── procesar_registro.php            # 166 líneas. Validación + BCRYPT + welcome email + auto-login
+├── procesar_recuperar.php           # 129 líneas. Token seguro + email recovery + rate limiting
+├── procesar_nueva_clave.php         # 75 líneas. Reset contraseña con destrucción de token
+├── procesar_google.php              # 195 líneas. OAuth 2.0 handler + auto-create + cart fusion
+├── procesar_pedido.php              # 404 líneas. Bizum: anti-fraude + transacción + emails
+├── procesar_pago.php                # 496 líneas. PayPal S2S: verificación real + anti-fraude + emails
+├── procesar_perfil.php              # 236 líneas. CRUD perfil/direcciones/recursos con ownership
+├── procesar_newsletter.php          # 141 líneas. Suscripción/baja con honeypot + reCAPTCHA
+├── carrito_accion.php               # 154 líneas. Añadir al carrito con recálculo server-side
+├── carrito_modificar.php            # 86 líneas. Modificar cantidades con sync atómico
+├── guardar_diseno.php               # 339 líneas. Guardar diseño: validación, GD, cleanup
+├── guardar_progreso.php             # 50 líneas. Auto-save JSON del editor a BD
+├── subir_recurso.php                # 191 líneas. Upload seguro: MIME + GD re-render + cleanup
+├── borrar_recurso.php               # 121 líneas. Eliminar con anti-path-traversal + ownership
+├── cancelar_pedido.php              # 81 líneas. Cancelación con emails a cliente y admin
+├── save-products.php                # 165 líneas. Sync catálogo con protección anti-borrado masivo
+├── upload.php                       # 120 líneas. Upload admin con whitelist + MIME verification
+├── enviar_masivo.php                # 105 líneas. Envío masivo para admin (clientes/newsletter)
+├── obtener_productos.php            # 15 líneas. API JSON: un producto base por categoría
+├── obtener_recursos.php             # 48 líneas. API JSON: últimos 20 recursos del usuario
+├── logout.php                       # 39 líneas. Logout con persistencia de carrito en BD
+├── baja.php                         # 124 líneas. Confirmación de baja de newsletter
+│
+├── index.php                        # 583 líneas. Landing: hero, categorías, destacados, mapa, reseñas
+├── productos.php                    # 967 líneas. Catálogo: filtros, búsqueda, paginación, sorting
+├── producto.php                     # 1100+ líneas. Detalle: galería, zoom, guía tallas, videos
+├── personalizar.php                 # 7878 líneas. Editor Fabric.js: canvas multi-zona, texto,
+│                                    #   stickers, filtros, plantillas, undo/redo, auto-save
+├── carrito.php                      # 577 líneas. Carrito: preview, extras breakdown, shipping bar
+├── checkout.php                     # 587 líneas. Checkout: direcciones, PayPal buttons, Bizum
+├── gracias.php                      # 198 líneas. Post-compra: confetti, timeline, WhatsApp CTA
+├── perfil.php                       # 700+ líneas. Dashboard: pedidos, biblioteca, direcciones, seguridad
+├── mi_pedido_detalle.php            # 272 líneas. Detalle de pedido para el cliente
+├── ver_detalles.php                 # 585 líneas. Detalle admin con centro de producción
+├── login.php                        # 328 líneas. Login: rate limiting, Google OAuth, CSRF
+├── registro.php                     # 307 líneas. Registro: strength meter, privacidad, reCAPTCHA
+├── recuperar.php                    # 68 líneas. Petición de recuperación de contraseña
+├── restablecer.php                  # 181 líneas. Reset de contraseña con validación de token
+├── contacto.php                     # 973 líneas. Contacto premium: mapa, redes, formulario, reseñas
+├── faq.php                          # 183 líneas. FAQ con acordeón por categorías
+├── admin_pedidos.php                # 1434 líneas. Dashboard: cleanup automático, stats, filtros, cambio estado
+├── admin_productos.php              # 2021 líneas. CRUD: upload imagen/video, galería, destacado
+├── admin_pagos.php                  # 412 líneas. Auditoría: stats, filtros, chargebacks
+├── lista_clientes_secreta.php       # 557 líneas. Base de clientes con estadísticas
+├── sitemap.php                      # 145 líneas. Sitemap visual para visitantes
+├── sitemap_xml.php                  # 94 líneas. Sitemap XML dinámico (consulta BD)
+├── aviso-legal.php                  # Legal: empresa (CAMIGLOBO SL, CIF B67479100), LSSI
+├── politica-privacidad.php          # Legal: GDPR/LOPD
+├── terminos-condiciones.php         # Legal: condiciones de venta
+├── politica-envios.php              # Legal: envíos (gratis >45€, 4.95€ resto)
+├── politica-reembolso.php           # Legal: devoluciones (personalizados: sin devolución)
+│
+├── .htaccess                        # 102 líneas. URLs limpias, HTTPS, HSTS, CSP, seguridad,
+│                                    #   caching, protección de archivos, Shopify redirects
+├── robots.txt                       # Directivas de rastreo para buscadores
+└── .env                             # Todas las credenciales (protegido por .htaccess)
+            </code></pre>
+
+            <h3>Patrones de Arquitectura</h3>
+            <table>
+                <thead><tr><th>Patrón</th><th>Implementación</th><th>Propósito</th></tr></thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Scripts procesadores</strong></td>
+                        <td><code>procesar_*.php</code>, <code>carrito_*.php</code>, <code>guardar_*.php</code></td>
+                        <td>Scripts "sin cabeza" que no producen HTML. Reciben datos del formulario, los procesan (validar, BD, emails) y redirigen. Separación clave para seguridad y organización.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Inclusión global</strong></td>
+                        <td><code>config.php</code> incluido en cada página</td>
+                        <td>Configuración centralizada: BD, sesiones, funciones de seguridad. Evita duplicación y asegura consistencia.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Sync atómico de carrito</strong></td>
+                        <td>Lectura BD → merge sesión → escritura BD</td>
+                        <td>Previene conflictos en multi-tab/multi-device. La BD es la fuente de verdad.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Precios server-side</strong></td>
+                        <td>Recálculo en cada operación de pedido/pago</td>
+                        <td>Nunca confiar en el precio enviado por el cliente. El servidor consulta BD y calcula.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Transacciones atómicas</strong></td>
+                        <td>BEGIN/COMMIT/ROLLBACK en pedidos y pagos</td>
+                        <td>Si cualquier paso falla, se revierte todo. Evita datos inconsistentes.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Cleanup periódico</strong></td>
+                        <td>En cada carga de <code>admin_pedidos.php</code></td>
+                        <td>Limpia audit_log >30 días, biblioteca_recursos >60 días, archivos huérfanos >15 días.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- PESTAÑA RESUMEN EJECUTIVO -->
+        <div id="Resumen" class="tab-content">
+            <h2>Resumen Ejecutivo</h2>
+            <p>Vista general del proyecto Camiglobo Barcelona: una plataforma e-commerce completa de productos textiles personalizados con editor de diseño interactivo, doble pasarela de pago y panel de administración.</p>
+
+            <h3>Datos del Proyecto</h3>
+            <div class="grid">
+                <div class="card card-green">
+                    <h4>Identidad</h4>
+                    <ul>
+                        <li><strong>Empresa:</strong> CAMIGLOBO SL</li>
+                        <li><strong>CIF:</strong> B67479100</li>
+                        <li><strong>Dominio:</strong> www.camiglobo.com</li>
+                        <li><strong>Dirección:</strong> C/ Doctor Bove 115, 08032 Barcelona</li>
+                        <li><strong>Hosting:</strong> Hostinger (hPanel)</li>
+                    </ul>
+                </div>
+                <div class="card card-orange">
+                    <h4>Código</h4>
+                    <ul>
+                        <li><strong>~50</strong> archivos PHP</li>
+                        <li><strong>~15,000+</strong> líneas de código</li>
+                        <li><strong>11</strong> tablas en la base de datos</li>
+                        <li><strong>Archivo más grande:</strong> personalizar.php (7,878 líneas)</li>
+                        <li><strong>Sin framework:</strong> PHP puro + Vanilla JS</li>
+                    </ul>
+                </div>
+                <div class="card card-red">
+                    <h4>Seguridad</h4>
+                    <ul>
+                        <li><strong>18</strong> capas de protección</li>
+                        <li><strong>Anti:</strong> SQL injection, CSRF, XSS, fraude, brute force, bots, path traversal, open redirect, DoS</li>
+                        <li><strong>BCRYPT</strong> para contraseñas</li>
+                        <li><strong>CSP + HSTS</strong> headers</li>
+                        <li><strong>GDPR</strong> compliant con cookie consent</li>
+                    </ul>
+                </div>
+                <div class="card card-purple">
+                    <h4>Integraciones</h4>
+                    <ul>
+                        <li><strong>PayPal</strong> (pago S2S verificado)</li>
+                        <li><strong>Bizum</strong> (transferencia)</li>
+                        <li><strong>Google</strong> OAuth, reCAPTCHA, Maps, Fonts</li>
+                        <li><strong>PHPMailer</strong> (SMTP Hostinger)</li>
+                        <li><strong>Fabric.js</strong> (editor canvas)</li>
+                        <li><strong>WhatsApp</strong> Business</li>
+                    </ul>
+                </div>
+            </div>
+
+            <h3>Funcionalidades Principales</h3>
+            <table>
+                <thead><tr><th>Módulo</th><th>Funcionalidades</th><th>Archivos Clave</th></tr></thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Editor de Diseño</strong></td>
+                        <td>Canvas Fabric.js, 5 zonas (frontal/espalda/nuca/mangas), 20 fuentes, 16 efectos de texto, stickers, filtros, plantillas, undo/redo, auto-guardado, biblioteca personal</td>
+                        <td><code>personalizar.php</code>, <code>guardar_diseno.php</code>, <code>guardar_progreso.php</code></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Catálogo</strong></td>
+                        <td>Productos dinámicos desde BD, filtros por categoría/búsqueda/precio, sorting, paginación, galería con zoom, guía de tallas, selector de color/talla, videos, productos relacionados</td>
+                        <td><code>productos.php</code>, <code>producto.php</code>, <code>obtener_productos.php</code></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Carrito</strong></td>
+                        <td>Persistencia dual (sesión+BD), sync multi-tab, fusionado guest→logueado, desglose de extras, preview de diseño, barra de envío gratuito</td>
+                        <td><code>carrito.php</code>, <code>carrito_accion.php</code>, <code>carrito_modificar.php</code></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Checkout & Pagos</strong></td>
+                        <td>Doble pasarela (PayPal Smart Buttons + Bizum), libreta de direcciones, anti-fraude server-side, verificación S2S PayPal, transacciones atómicas</td>
+                        <td><code>checkout.php</code>, <code>procesar_pedido.php</code>, <code>procesar_pago.php</code></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Gestión Pedidos</strong></td>
+                        <td>6 estados (Pend. Pago→Pagado→En Taller→Enviado→Entregado/Cancelado), historial de cambios, tracking URL, cancelación por cliente, confetti post-compra</td>
+                        <td><code>gracias.php</code>, <code>mi_pedido_detalle.php</code>, <code>cancelar_pedido.php</code></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Autenticación</strong></td>
+                        <td>Login con rate limiting, registro con strength meter + reCAPTCHA, Google OAuth 2.0, recuperación segura con token (1h), auto-login post-registro, cart fusion</td>
+                        <td><code>login.php</code>, <code>registro.php</code>, <code>procesar_google.php</code>, <code>recuperar.php</code></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Perfil Usuario</strong></td>
+                        <td>4 pestañas: pedidos, biblioteca de diseños, direcciones, seguridad. Cambio de contraseña con reCAPTCHA, CRUD direcciones con predeterminada</td>
+                        <td><code>perfil.php</code>, <code>procesar_perfil.php</code></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Emails</strong></td>
+                        <td>17 emails transaccionales automáticos (registro, pedidos, estados, newsletter, contacto). PHPMailer + SMTP. Template branded con colores por tipo</td>
+                        <td><code>config.php</code> (función <code>enviarEmail()</code>)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Admin</strong></td>
+                        <td>Pedidos (filtros, cambio estado, WhatsApp), productos (CRUD + galería + videos), pagos (auditoría + chargebacks), clientes (stats), envío masivo, cleanup automático</td>
+                        <td><code>admin_pedidos.php</code>, <code>admin_productos.php</code>, <code>admin_pagos.php</code></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Contenido</strong></td>
+                        <td>Newsletter, contacto premium, FAQ, SEO (sitemap XML dinámico, canonical, OG tags), 5 páginas legales (GDPR/LSSI), cookie consent banner</td>
+                        <td><code>contacto.php</code>, <code>faq.php</code>, <code>sitemap_xml.php</code>, legales</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>Flujo de Compra Simplificado</h3>
+            <pre><code>Explorar catálogo → Ver detalle → Personalizar (Fabric.js) → Añadir al carrito
+→ Checkout (dirección + términos) → Pago (PayPal o Bizum) → Confirmación (confetti)
+→ Admin gestiona (En Taller → Enviado con tracking → Entregado)
+→ El usuario ve todo desde su perfil con historial y biblioteca de diseños</code></pre>
+
+            <h3>Base de Datos — 11 Tablas</h3>
+            <table>
+                <thead><tr><th>Tabla</th><th>Propósito</th><th>Registros Típicos</th></tr></thead>
+                <tbody>
+                    <tr><td><code>usuarios</code></td><td>Cuentas de cliente/admin con carrito y diseño persistidos</td><td>Clientes registrados</td></tr>
+                    <tr><td><code>productos</code></td><td>Catálogo con galería, videos y precios</td><td>Productos a la venta</td></tr>
+                    <tr><td><code>pedidos</code></td><td>Cabecera de cada orden (estado, total, dirección)</td><td>Un registro por pedido</td></tr>
+                    <tr><td><code>pedidos_detalle</code></td><td>Productos dentro de cada pedido + diseños custom</td><td>Varios por pedido</td></tr>
+                    <tr><td><code>pagos</code></td><td>Transacciones PayPal/Bizum verificadas</td><td>Uno por pedido</td></tr>
+                    <tr><td><code>user_direcciones</code></td><td>Libreta de direcciones del usuario</td><td>Varias por usuario</td></tr>
+                    <tr><td><code>biblioteca_recursos</code></td><td>Imágenes subidas por el usuario para el editor</td><td>Varias por usuario</td></tr>
+                    <tr><td><code>pedido_historial</code></td><td>Auditoría de cambios de estado de pedidos</td><td>Varios por pedido</td></tr>
+                    <tr><td><code>audit_log</code></td><td>Registro de eventos de seguridad (auto-limpia >30 días)</td><td>Creciente, se purga</td></tr>
+                    <tr><td><code>login_intentos</code></td><td>Protección anti-fuerza bruta por IP</td><td>Transitorio</td></tr>
+                    <tr><td><code>newsletter</code></td><td>Suscriptores del boletín</td><td>Emails suscritos</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script>
+        function openTab(evt, tabName) {
+            var i, tabcontent, tabbuttons;
+            tabcontent = document.getElementsByClassName("tab-content");
+            for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].style.display = "none";
+            }
+            tabbuttons = document.getElementsByClassName("tab-button");
+            for (i = 0; i < tabbuttons.length; i++) {
+                tabbuttons[i].className = tabbuttons[i].className.replace(" active", "");
+            }
+            document.getElementById(tabName).style.display = "block";
+            if (evt && evt.currentTarget) {
+                evt.currentTarget.className += " active";
+            }
+        }
+        function openTabSelect(tabName) {
+            var i, tabcontent;
+            tabcontent = document.getElementsByClassName("tab-content");
+            for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].style.display = "none";
+            }
+            document.getElementById(tabName).style.display = "block";
+        }
+    </script>
+
+</body>
+</html>

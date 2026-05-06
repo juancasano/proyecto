@@ -1,0 +1,25 @@
+User-agent: *
+
+# --- SEGURIDAD: Bloqueo de archivos sensibles ---
+Disallow: /admin/
+Disallow: /includes/
+Disallow: /PHPMailer/
+Disallow: /config.php
+Disallow: /procesar_*.php
+Disallow: /error_log
+
+# --- EFICIENCIA (Crawl Budget): Páginas que no venden ---
+Disallow: /carrito.php
+Disallow: /login.php
+Disallow: /perfil.php
+Disallow: /logout.php
+Disallow: /perfil_editar.php
+
+# --- FILTROS Y BÚSQUEDA (Evitar contenido duplicado) ---
+# Bloqueamos el rastreo de búsquedas internas para evitar URLs infinitas
+Disallow: /*?q=*
+
+# --- RUTA DINÁMICA ACTUALIZADA (Sitemap Pro) ---
+Sitemap: https://www.camiglobo.com/sitemap_xml.php
+# --- PERMITIR EL RESTO ---
+Allow: /

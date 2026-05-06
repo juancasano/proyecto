@@ -1,0 +1,102 @@
+# ----------------------------------------------------------------------
+# SEGURIDAD Y REDIRECCIONES - CAMIGLOBO (Versión Final Integrada)
+# ----------------------------------------------------------------------
+
+# 0. Desactivar el listado de directorios
+Options -Indexes
+
+# 1. Motor de Redirección
+RewriteEngine On
+RewriteBase /
+
+# 1.1. URLs LIMPIAS: Ocultar la extensión .php 
+# Permite entrar a camiglobo.com/personalizar en lugar de personalizar.php
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME}\.php -f
+RewriteRule ^([^\.]+)$ $1.php [NC,L]
+
+# 1.2. Forzar WWW y HTTPS
+RewriteCond %{HTTP_HOST} !^www\. [NC,OR]
+RewriteCond %{HTTPS} off
+RewriteRule ^(.*)$ https://www.camiglobo.com/$1 [L,R=301]
+
+# Activar HSTS (Fuerza conexiones seguras durante 1 año)
+<IfModule mod_headers.c>
+    Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains; preload"
+</IfModule>
+
+# 2. BLINDAJE: Bloquear acceso a archivos ocultos (.env, .git, .htaccess)
+<FilesMatch "^\.">
+    Require all denied
+</FilesMatch>
+
+# 2.1 BLINDAJE EXTRA: Bloquear lectura de cualquier registro de errores (logs)
+<FilesMatch "\.log$">
+    Require all denied
+</FilesMatch>
+
+# 3. BLINDAJE: Proteger archivos sensibles, bases de datos o logs
+# Protege config.php y el log de errores que usa admin/ver_pedido.php
+<FilesMatch "(?i)(^config\.php|.*error.*\.log|debug\.log|\.(sql|bak|old|zip))$">
+    Require all denied
+</FilesMatch>
+
+# 4. REDIRECCIONES SEO (Limpieza de links antiguos de Shopify)
+RewriteRule ^pages/pagina-de-contacto$ /contacto.php [L,NC,R=301]
+RewriteRule ^products/camiseta-personalizada$ /personalizar.php [L,NC,R=301]
+RewriteRule ^products/sudadera-personalizada-inspirada-en-los-autos-locos-1$ /productos.php [L,NC,R=301]
+RewriteRule ^products/tazas-personalizadas$ /personalizar.php [L,NC,R=301]
+RewriteRule ^products/camiseta-personalizadas-de-cantantes-1$ / [L,NC,R=301]
+RewriteRule ^pages/terminos-de-servicio$ /terminos-condiciones.php [L,NC,R=301]
+RewriteRule ^collections/camisetas-con-vinil-textil\.atom$ /productos.php [L,NC,R=301]
+
+# 4.1. GESTIÓN DE ERRORES: Si un link no existe, redirigir al Inicio
+ErrorDocument 404 /index.php
+
+# ======================================================================
+# MOTOR DE VELOCIDAD EXTREMA - GZIP & CACHÉ
+# ======================================================================
+
+# 5. COMPRESIÓN GZIP (Acelera la carga inicial reduciendo peso)
+<IfModule mod_deflate.c>
+    AddOutputFilterByType DEFLATE text/html text/plain text/xml text/css text/javascript
+    AddOutputFilterByType DEFLATE application/javascript application/x-javascript application/json
+    AddOutputFilterByType DEFLATE image/svg+xml
+</IfModule>
+
+# 6. CACHÉ DE NAVEGADOR (Memoriza logo, fuentes y estilos)
+<IfModule mod_expires.c>
+    ExpiresActive On
+    # Imágenes y Fuentes: 1 año
+    ExpiresByType image/jpg "access plus 1 year"
+    ExpiresByType image/jpeg "access plus 1 year"
+    ExpiresByType image/png "access plus 1 year"
+    ExpiresByType image/webp "access plus 1 year"
+    ExpiresByType image/x-icon "access plus 1 year"
+    ExpiresByType font/woff2 "access plus 1 year"
+    # Vídeos: 1 mes (pueden actualizarse con más frecuencia que las fotos)
+    ExpiresByType video/mp4 "access plus 1 month"
+    ExpiresByType video/webm "access plus 1 month"
+    
+    # CSS y JS: 1 mes
+    ExpiresByType text/css "access plus 1 month"
+    ExpiresByType application/javascript "access plus 1 month"
+    
+    # HTML y PHP: 0 segundos (Garantiza que el carrito y precios sean reales)
+    ExpiresDefault "access plus 0 seconds"
+</IfModule>
+
+# ======================================================================
+# AJUSTES CRÍTICOS PARA EL PERSONALIZADOR (Subida de Imágenes)
+# ======================================================================
+
+# 7. LÍMITES DE PHP (Evita que fotos de 10MB corten la subida)
+php_value upload_max_filesize 64M
+php_value post_max_size 64M
+php_value memory_limit 256M
+php_value max_execution_time 300
+php_value max_input_time 300
+
+# ----------------------------------------------------------------------
+# FIN DE CONFIGURACIÓN CAMIGLOBO — TODO OK
+# ----------------------------------------------------------------------

@@ -1,0 +1,36 @@
+# Secrets / credenciales
+includes/.env
+.env
+.env.local
+*.env
+
+# Configuración local de Claude Code
+.claude/
+
+# Backups SQL y volcados de base de datos
+*.sql
+u867490154_camiglobo*.sql
+
+# Archivos de Hostinger / cPanel
+(Raíz public_html).txt
+
+# Subidas de usuario (no versionar contenido subido)
+uploads/
+!uploads/.gitkeep
+
+# Logs y temporales
+*.log
+*.tmp
+*.bak
+*~
+Thumbs.db
+.DS_Store
+
+# Editores / IDE
+.vscode/
+.idea/
+*.swp
+
+# Dependencias (por si en el futuro)
+node_modules/
+vendor/
