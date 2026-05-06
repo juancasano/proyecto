@@ -2,7 +2,7 @@
 
 > Proyecto web real en producción desarrollado íntegramente desde cero.
 
-**[🌐 Ver en producción → camiglobo.com](https://camiglobo.com)**
+**[🌐 Ver en producción → camiglobo.com](https://camiglobo.com)** · **[📖 Documentación técnica completa](https://juancasano.github.io/documentacion-camiglobo.html)**
 
 ### Home
 
