@@ -4,7 +4,17 @@
 
 **[🌐 Ver en producción → camiglobo.com](https://camiglobo.com)**
 
-![Captura de Camiglobo](https://juancasano.github.io/assets/camiglobo.png)
+### Home
+![Home de Camiglobo](https://juancasano.github.io/assets/camiglobo.png)
+*Diseño responsive con hero principal y navegación clara hacia tienda y personalizador.*
+
+### Catálogo de productos
+![Catálogo de productos](https://juancasano.github.io/assets/camiglobo-productos.png)
+*Más de 100 referencias activas en producción con grid responsive, ordenadas dinámicamente desde la base de datos.*
+
+### Personalizador online
+![Personalizador online](https://juancasano.github.io/assets/camiglobo-personalizador.png)
+*Editor interactivo con selector de prenda, paletas de color, gradientes, subida de imagen, texto y previsualización en tiempo real (delante / detrás).*
 
 ---
 
@@ -56,4 +66,4 @@
 
 **Juan Manuel Casanova Lacasa** — Desarrollador Web Full Stack  
 📍 Barcelona, España  
-🔗 [Portafolio](https://juancasano.github.io) · [LinkedIn](https://www.linkedin.com/in/juan-casanova-93456331b/) · [juancasano83@gmail.com](mailto:juancasano83@gmail.com)
+🔗 [Portafolio](https://juancasano.github.io) · [LinkedIn](https://www.linkedin.com/in/juan-manuel-casanova-lacasa/) · [juancasano83@gmail.com](mailto:juancasano83@gmail.com)
