@@ -1,0 +1,15 @@
+# Bloquea ejecución de scripts en la carpeta de uploads
+# Importante para evitar webshells subidas como imágenes
+<FilesMatch "\.(php|php3|php4|php5|php7|phtml|pl|py|cgi|sh|asp|aspx|jsp|js)$">
+    Order Allow,Deny
+    Deny from all
+</FilesMatch>
+
+# Solo permitir tipos de archivo seguros (imágenes y vídeos)
+<FilesMatch "\.(jpg|jpeg|png|gif|webp|avif|mp4|webm|svg)$">
+    Order Allow,Deny
+    Allow from all
+</FilesMatch>
+
+# Desactivar listado de directorios
+Options -Indexes
