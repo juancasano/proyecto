@@ -64,7 +64,7 @@ camiglobo/
 │   ├── index.php                      # Home con hero y productos destacados
 │   ├── productos.php                  # Catálogo con filtros y búsqueda
 │   ├── producto.php                   # Detalle de producto individual
-│   ├── personalizar.php               # Editor visual (Fabric.js, 7.878 líneas)
+│   ├── personalizar.php               # Editor visual con Fabric.js
 │   ├── carrito.php                    # Vista del carrito
 │   ├── checkout.php                   # Proceso de compra
 │   ├── gracias.php                    # Confirmación post-compra
@@ -130,12 +130,12 @@ camiglobo/
 │   └── robots.txt
 │
 ├── 🧩 INCLUDES (núcleo común)
-│   ├── config.php                     # 510 líneas. PDO, sesiones, CSRF,
-│   │                                  #   helpers globales: h(), auditLog(),
+│   ├── config.php                     # PDO, sesiones, CSRF, helpers
+│   │                                  #   globales: h(), auditLog(),
 │   │                                  #   enviarEmail(), validarRecaptcha()
-│   ├── header.php                     # 602 líneas. Navbar + meta + búsqueda
+│   ├── header.php                     # Navbar + meta + búsqueda
 │   ├── footer.php                     # Pie con redes sociales
-│   ├── pricing.php                    # 59 líneas. Cálculo dinámico de precio
+│   ├── pricing.php                    # Cálculo dinámico de precio
 │   ├── colors.php                     # Paleta de colores y gradientes del editor
 │   ├── PHPMailer/                     # Librería de envío de emails (SMTP)
 │   ├── .env-example                   # Plantilla de variables de entorno
@@ -161,7 +161,6 @@ camiglobo/
 │   └── .gitignore
 ```
 
-**Tamaño aproximado del código**: ~600 KB de PHP, ~17 KB de CSS minificado, librería PHPMailer + Fabric.js (CDN).
 
 ---
 
